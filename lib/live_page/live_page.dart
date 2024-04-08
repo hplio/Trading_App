@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:get/get.dart';
 import 'package:trading_app/Chart/chart.dart';
 import 'package:trading_app/constants/colors.dart';
@@ -7,33 +8,53 @@ import 'package:trading_app/constants/text.dart';
 class LivePage extends StatelessWidget {
   const LivePage({super.key});
 
-  Widget list(BuildContext context,String fileName,String stockName){
+  Widget list(BuildContext context, String fileName, String stockName) {
+    final bool dark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SizedBox(
-                  width: double.maxFinite,
-                  // height: 100,
-                  child: ElevatedButton(
-                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MainPage(file: fileName,)),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15,right: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(stockName),
-                            const Icon(Icons.add_circle_outlined),
-                          ],
-                        ),
-                      ),),
+      padding: const EdgeInsets.only(top: 9.0),
+      child: SizedBox(
+        width: double.maxFinite,
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: TColor.primary,
+              )),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => Get.to(
+                    () => MainPage(
+                      file: fileName,
+                      stockName: stockName,
+                    ),
+                  ),
+                  child: SizedBox(
+                    child: Text(
+                      stockName,
+                      style: Theme.of(context).textTheme.bodyLarge!.apply(
+                            fontWeightDelta: 3,
+                          ),
+                    ),
+                  ),
                 ),
-              );
-              
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.add,
+                    color: dark ? TColor.white : TColor.darkerGrey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -68,178 +89,19 @@ class LivePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(26.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               list(context, "apple.html", "Apple"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'apple.html',)),
-              //           );
-              //         },
-              //         child: const Text("Apple")),
-              //   ),
-              // ),
               list(context, "amazon.html", "Amazon"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'amazon.html',)),
-              //           );
-              //         },
-              //         child: const Text("Amazon")),
-              //   ),
-              // ),
               list(context, "amd.html", "Amd"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'amd.html',)),
-              //           );
-              //         },
-              //         child: const Text("Amd")),
-              //   ),
-              // ),
               list(context, "google.html", "Google"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'google.html',)),
-              //           );
-              //         },
-              //         child: const Text("Google")),
-              //   ),
-              // ),
               list(context, "meta.html", "Meta"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'meta.html',)),
-              //           );
-              //         },
-              //         child: const Text("Meta")),
-              //   ),
-              // ),
               list(context, "microsoft.html", "Microsoft"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'microsoft.html',)),
-              //           );
-              //         },
-              //         child: const Text("Microsoft")),
-              //   ),
-              // ),
               list(context, "netflix.html", "Netflix"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //                           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'netflix.html',)),
-              //           );
-              //         },
-              //         child: const Text("Netflix")),
-              //   ),
-              // ),
               list(context, "nvdia.html", "Nvidia"),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'nvdia.html',)),
-              //           );
-              //         },
-              //         child: const Text("Nvdia")),
-              //   ),
-              // ),
-              
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: SizedBox(
-              //     width: double.maxFinite,
-              //     // height: 100,
-              //     child: ElevatedButton(
-              //       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-              //         onPressed: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(builder: (context) => const MainPage(file: 'tesla.html',)),
-              //           );
-              //         },
-              //         child: Padding(
-              //           padding: const EdgeInsets.only(left: 15,right: 8),
-              //           child: const Row(
-              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //             children: [
-              //               Text("Tesla"),
-              //               Icon(Icons.add_circle_outlined),
-              //             ],
-              //           ),
-              //         ),),
-              //   ),
-              // ),
-              
               list(context, "tesla.html", "Tesla"),
-              // Text('Live page!!',
-              // style: Theme.of(context).textTheme.headlineLarge,
-              // )
             ],
           ),
         ),
@@ -247,8 +109,3 @@ class LivePage extends StatelessWidget {
     );
   }
 }
-
-// ignore: non_constant_identifier_names
-// Widget list(){
-  
-// }

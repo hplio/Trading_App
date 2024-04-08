@@ -1,11 +1,15 @@
 // import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:trading_app/constants/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key, required this.file, required this.stockName});
   final String file;
-  const MainPage({super.key,required this.file});
+  final String stockName;
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -43,12 +47,28 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool dark = Theme.of(context).brightness == Brightness.dark;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('webview_flutter Example'),
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          leading: GestureDetector(
+            onTap: () => Get.back(),
+            child: Icon(
+              Iconsax.arrow_left_copy,
+              color: dark ? TColor.white : TColor.black,
+            ),
+          ),
+          title: Text(
+            widget.stockName,
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
         ),
-        body: WebViewWidget(controller: controller),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical:12),
+          child: WebViewWidget(controller: controller),
+        ),
       ),
     );
   }
