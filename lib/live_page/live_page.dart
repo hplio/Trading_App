@@ -66,7 +66,7 @@ class LivePage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               list(context, "apple.html", "Apple"),
