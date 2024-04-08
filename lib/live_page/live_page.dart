@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'package:trading_app/Chart/chart.dart';
 import 'package:trading_app/constants/colors.dart';
 import 'package:trading_app/constants/text.dart';
@@ -7,18 +7,18 @@ import 'package:trading_app/constants/text.dart';
 class LivePage extends StatelessWidget {
   const LivePage({super.key});
 
-  Widget list(BuildContext context,String file_name,String Stock_name){
+  Widget list(BuildContext context,String fileName,String stockName){
     return Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: SizedBox(
                   width: double.maxFinite,
                   // height: 100,
                   child: ElevatedButton(
-                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
+                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MainPage(file: file_name,)),
+                          MaterialPageRoute(builder: (context) => MainPage(file: fileName,)),
                         );
                       },
                       child: Padding(
@@ -26,8 +26,8 @@ class LivePage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(Stock_name),
-                            Icon(Icons.add_circle_outlined),
+                            Text(stockName),
+                            const Icon(Icons.add_circle_outlined),
                           ],
                         ),
                       ),),
