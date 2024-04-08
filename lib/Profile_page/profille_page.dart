@@ -87,7 +87,7 @@ class ProfilePagge extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: ProfileTile(
                   onPress: () {},
@@ -122,4 +122,3 @@ class ProfilePagge extends StatelessWidget {
     );
   }
 }
-
