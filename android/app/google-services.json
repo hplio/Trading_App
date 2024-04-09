@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "109761333004",
+    "project_id": "tradingapp-36a3b",
+    "storage_bucket": "tradingapp-36a3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109761333004:android:1610e8a2fa15720f3feb29",
+        "android_client_info": {
+          "package_name": "com.example.trading_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7gMTO_G91-EpY8UwNtGWRtJmQ60OAl3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
