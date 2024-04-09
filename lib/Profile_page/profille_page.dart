@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:trading_app/Profile_page/widget/app_featuers_tiles.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
 import 'package:trading_app/constants/colors.dart';
+import 'package:trading_app/login_page/login_page.dart';
 
 class ProfilePagge extends StatelessWidget {
   const ProfilePagge({super.key});
@@ -108,7 +111,10 @@ class ProfilePagge extends StatelessWidget {
                         side: BorderSide(
                       color: dark ? TColor.grey : TColor.darkerGrey,
                     )),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Get.offAll(const LoginPage());
+                    },
                     child: const Text(
                       'Logout',
                     ),

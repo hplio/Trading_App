@@ -75,7 +75,7 @@ class SignInForm extends StatelessWidget {
                 user = await _auth.createUserWithEmailAndPassword(
                     email: email, password: password);
                 if (user != null) {
-                  Get.to(const LoginPage());
+                  Get.offAll(const LoginPage());
                 }
               },
               child: const Text('Sign In'),

@@ -24,6 +24,7 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
           TextField(
+            controller: controller.emailController.value,
             onChanged: (value) => email = value,
             decoration: const InputDecoration(
               labelText: 'E-mail',
@@ -34,6 +35,7 @@ class LoginForm extends StatelessWidget {
             height: KSizeScreen.getScreenHeight(context) * .018,
           ),
           TextField(
+            controller: controller.passwordController.value,
             onChanged: (value) => password = value,
             obscureText: true,
             decoration: const InputDecoration(
@@ -82,19 +84,21 @@ class LoginForm extends StatelessWidget {
           ),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () async {
-                user = await _auth.signInWithEmailAndPassword(
-                    email: email, password: password);
-
-                if (user != null) {
-                  Get.to(const BottomNavigation());
-                }
-              },
-              // onPressed: () => Get.to(const BottomNavigation()),
-              child: const Text('Log in'),
+            child:  ElevatedButton(
+                onPressed: () async {
+                  user = await _auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+              
+                  if (user != null) {
+                    Get.offAll(const BottomNavigation());
+                    controller.emailController.value.clear();
+                    controller.passwordController.value.clear();
+                  }
+                },
+                // onPressed: () => Get.to(const BottomNavigation()),
+                child: const Text('Log in'),
+              ),
             ),
-          ),
           SizedBox(
             height: KSizeScreen.getScreenHeight(context) * .015,
           ),
