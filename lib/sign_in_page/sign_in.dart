@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:trading_app/common/signin_login/divider_text.dart';
+import 'package:trading_app/common/signin_login/social_icon.dart';
 import 'package:trading_app/constants/colors.dart';
 import 'package:trading_app/sign_in_page/widget/signin_form.dart';
 
@@ -35,7 +37,19 @@ class SignInPage extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                 const SignInForm(),
+                const SignInForm(),
+                const SizedBox(
+                  height: 25,
+                ),
+                const DividerWithText(text: 'or sign in with'),
+                const SizedBox(
+                  height: 12,
+                ),
+                const Center(
+                  child: SocialIcon(
+                    imgString: 'Assets/images/logo/google.png',
+                  ),
+                ),
               ],
             ),
           ),
@@ -44,4 +58,3 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
-

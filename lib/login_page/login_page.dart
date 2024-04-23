@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trading_app/common/signin_login/divider_text.dart';
+import 'package:trading_app/common/signin_login/social_icon.dart';
 import 'package:trading_app/constants/size.dart';
 import 'package:trading_app/login_page/widget/login_form.dart';
 
@@ -7,6 +9,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -30,6 +33,20 @@ class LoginPage extends StatelessWidget {
                   height: KSizeScreen.getScreenHeight(context) * .05,
                 ),
                 const LoginForm(),
+                const SizedBox(
+                  height: 25,
+                ),
+                const DividerWithText(
+                  text: 'or sign in with',
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                const Center(
+                  child: SocialIcon(
+                    imgString: 'Assets/images/logo/google.png',
+                  ),
+                ),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:trading_app/login_page/login_page.dart';
 
 class OnBordingController extends GetxController {
@@ -13,11 +14,30 @@ class OnBordingController extends GetxController {
     pageController.jumpToPage(index);
   }
 
-  void nextPage() {
+  void nextPage() async {
     if (curruntPage.value == 2) {
-      Get.to(const LoginPage());
+      final storage = GetStorage();
+      await storage.write('isFirstTime', false);
+      Get.offAll(const LoginPage());
     } else {
       pageController.jumpToPage(curruntPage.value + 1);
     }
   }
 }
+
+// if (curruntPage.value == 2) {
+//       final storage = GetStorage();
+//       if (kDebugMode) {
+//         print('======= CONTEROLER PAGE-2 ======');
+//         print(storage.read('isFirstTime'));
+//       }
+
+//       storage.write('isFirstTime', false);
+//       if (kDebugMode) {
+//         print('======= CONTEROLER PAGE-2 ======');
+//         print(storage.read('isFirstTime'));
+//       }
+//       Get.offAll(const LoginScreen());
+//     } else {
+//       pageController.jumpToPage(curruntPage.value + 1);
+//     }

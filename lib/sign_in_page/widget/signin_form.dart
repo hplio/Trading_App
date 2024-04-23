@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-// import 'package:trading_app/bottom_navigationbar/bottom_navigation.dart';
-import 'package:trading_app/login_page/login_page.dart';
+import 'package:trading_app/common/terms_condition/terms_condition_text.dart';
+import 'package:trading_app/sign_in_page/sign_in_controller/sign_in_ct.dart';
+import 'package:trading_app/validators/validator.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({
@@ -12,28 +12,35 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
-    late String email;
-    late String password;
-    late final user;
-
+    final controller = Get.put(SignInController());
     return Form(
+      key: controller.signInKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // const TextField(
-          //   decoration: InputDecoration(
-          //     labelText: 'User Name',
-          //     prefixIcon: Icon(
-          //       Iconsax.user,
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(
-          //   height: 15,
-          // ),
-          TextField(
-            onChanged: (value) => email = value,
+          TextFormField(
+            controller: controller.userName,
+            validator: (value) =>
+                Kvalidator.validateEmptyText('User Name', value),
+            decoration: const InputDecoration(
+                prefixIcon: Icon(Iconsax.user), labelText: 'User Name'),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            controller: controller.phoneNumber,
+            validator: (value) =>
+                Kvalidator.validatePhoneNumber(value),
+            decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.phone), labelText: 'Phone Number'),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            controller: controller.email,
+            validator: (value) => Kvalidator.validateEmail(value),
             decoration: const InputDecoration(
               labelText: 'E-mail',
               prefixIcon: Icon(
@@ -44,26 +51,49 @@ class SignInForm extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          // const TextField(
-          //   decoration: InputDecoration(
-          //     labelText: 'Phone Number',
-          //     prefixIcon: Icon(
-          //       Icons.phone,
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(
-          //   height: 15,
-          // ),
-          TextField(
-            onChanged: (value) => password = value,
-            obscureText: true,
-            decoration: const InputDecoration(
+          Obx(
+            () => TextFormField(
+              controller: controller.password,
+              validator: (value) => Kvalidator.validatePassword(value),
+              obscureText: controller.hidePassword.value,
+              decoration: InputDecoration(
                 labelText: 'Password',
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Iconsax.password_check,
                 ),
-                suffixIcon: Icon(Iconsax.eye)),
+                suffixIcon: IconButton(
+                  onPressed: () => controller.hidePassword.value =
+                      !controller.hidePassword.value,
+                  icon: Icon(
+                    controller.hidePassword.value
+                        ? Iconsax.eye
+                        : Iconsax.eye_slash,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              SizedBox(
+                height: 24,
+                width: 24,
+                child: Obx(
+                  () => Checkbox(
+                    value: controller.isAgree.value,
+                    onChanged: (value) =>
+                        controller.isAgree.value = !controller.isAgree.value,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              const TermsAndConditionText(),
+            ],
           ),
           const SizedBox(
             height: 32,
@@ -71,13 +101,7 @@ class SignInForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () async {
-                user = await _auth.createUserWithEmailAndPassword(
-                    email: email, password: password);
-                if (user != null) {
-                  Get.offAll(const LoginPage());
-                }
-              },
+              onPressed: ()=>controller.signInUser(),
               child: const Text('Sign In'),
             ),
           ),
