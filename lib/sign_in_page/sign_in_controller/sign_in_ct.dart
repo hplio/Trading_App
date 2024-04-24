@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_app/authenticatin_repository/auth_repo.dart';
-import 'package:trading_app/bottom_navigationbar/bottom_navigation.dart';
 import 'package:trading_app/common/loader/loader.dart';
 import 'package:trading_app/network/network_manager.dart';
 import 'package:trading_app/popups/full_screen_loder.dart';
+import 'package:trading_app/sign_in_page/email_verification.dart';
 import 'package:trading_app/user/user_model.dart';
 import 'package:trading_app/user/user_repository.dart';
 
@@ -59,7 +59,7 @@ class SignInController extends GetxController {
       KLoader.successSnackBar(
           title: 'Congratulation', massage: 'Your account has been created.');
 
-      Get.offAll(const BottomNavigation());
+      Get.to(EmailVerificationPage(email: email.text.trim()));
     } catch (e) {
       KFullScreenLoder.stopLoading();
       KLoader.errorSnackBar(title: 'oh snap!', massage: e.toString());

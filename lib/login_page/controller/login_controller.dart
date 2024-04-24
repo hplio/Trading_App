@@ -6,6 +6,7 @@ import 'package:trading_app/bottom_navigationbar/bottom_navigation.dart';
 import 'package:trading_app/common/loader/loader.dart';
 import 'package:trading_app/network/network_manager.dart';
 import 'package:trading_app/popups/full_screen_loder.dart';
+import 'package:trading_app/user/user_repository.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -15,6 +16,7 @@ class LoginController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  // final userController = Get.put(UserReposetory());
 
   @override
   void onInit() {
@@ -53,5 +55,19 @@ class LoginController extends GetxController {
       KFullScreenLoder.stopLoading();
       KLoader.errorSnackBar(title: 'oh snap', massage: e.toString());
     }
+  }
+
+  signInWithGoole() async {
+    try {
+      KFullScreenLoder.openLodingDialog(
+          'LogIn you in...', 'assets/images/animation/animation_loading.gif');
+      final bool isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        KFullScreenLoder.stopLoading();
+        return;
+      }
+      final userCredential =
+          await AuthRepo.instance.signInWithGoogleUsingEmail();
+    } catch (e) {}
   }
 }
