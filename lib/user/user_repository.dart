@@ -12,7 +12,7 @@ class UserReposetory extends GetxController {
 
   Future<void> saveUserRecord(UserModel user) async {
     try {
-      await _db.collection('UserDetaile').doc(user.id).set(user.toJson());
+      await _db.collection('UserDetails').doc(user.id).set(user.toJson());
     } on FirebaseException catch (e) {
       throw getErrorMessage(e);
     } on FormatException catch (e) {

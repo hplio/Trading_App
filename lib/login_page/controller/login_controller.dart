@@ -6,7 +6,7 @@ import 'package:trading_app/bottom_navigationbar/bottom_navigation.dart';
 import 'package:trading_app/common/loader/loader.dart';
 import 'package:trading_app/network/network_manager.dart';
 import 'package:trading_app/popups/full_screen_loder.dart';
-import 'package:trading_app/user/user_repository.dart';
+import 'package:trading_app/user/controller/user_controller.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -16,7 +16,7 @@ class LoginController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  // final userController = Get.put(UserReposetory());
+  final userController = Get.put(UserController());
 
   @override
   void onInit() {
@@ -68,6 +68,13 @@ class LoginController extends GetxController {
       }
       final userCredential =
           await AuthRepo.instance.signInWithGoogleUsingEmail();
-    } catch (e) {}
+
+      userController.saveUserRecord(userCredential);
+      KFullScreenLoder.stopLoading();
+      AuthRepo.instance.screenRedirect();
+    } catch (e) {
+      KFullScreenLoder.stopLoading();
+      KLoader.errorSnackBar(title: 'oh snap!', massage: e.toString());
+    }
   }
 }
