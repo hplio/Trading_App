@@ -60,7 +60,7 @@ class LoginController extends GetxController {
   signInWithGoole() async {
     try {
       KFullScreenLoder.openLodingDialog(
-          'LogIn you in...', 'assets/images/animation/animation_loading.gif');
+          'LogIn you in...', 'Assets/animation/loading.json');
       final bool isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         KFullScreenLoder.stopLoading();
