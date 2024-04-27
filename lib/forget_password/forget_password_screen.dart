@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:trading_app/constants/colors.dart';
 import 'package:trading_app/constants/text.dart';
+import 'package:trading_app/forget_password/widget/forget_password_form.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
@@ -42,26 +43,19 @@ class ForgetPasswordScreen extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'E-mail',
-                  prefixIcon: Icon(
-                    Icons.email,
-                  ),
-                ),
-              ),
+              const ForgetPasswordForm(),
               const SizedBox(
                 height: 24,
               ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Submit',
-                  ),
-                ),
-              )
+              Text(
+                KtextString.passwordRule,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .apply(color: TColor.error),
+                textAlign: TextAlign.center,
+                softWrap: true,
+              ),
             ],
           ),
         ),
