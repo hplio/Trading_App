@@ -53,7 +53,7 @@ class BottomNavigation extends StatelessWidget {
 class NavigationController extends GetxController {
   Rx<int> curruntPage = 0.obs;
   final  container = <Widget>[
-    const LivePageScreen1(),
+    const LivePageScreen(),
     // const LivePage(),
     const WishListPage(),
     const ProfilePagge(),

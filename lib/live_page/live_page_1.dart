@@ -5,8 +5,8 @@ import 'package:trading_app/constants/text.dart';
 import 'package:trading_app/live_page/screens/nasdaq_stock_screen.dart';
 import 'package:trading_app/live_page/screens/nse_stock_screen.dart';
 
-class LivePageScreen1 extends StatelessWidget {
-  const LivePageScreen1({super.key});
+class LivePageScreen extends StatelessWidget {
+  const LivePageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
