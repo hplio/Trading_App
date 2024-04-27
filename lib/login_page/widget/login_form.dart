@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:trading_app/bottom_navigationbar/bottom_navigation.dart';
 import 'package:trading_app/constants/size.dart';
 import 'package:trading_app/forget_password/forget_password_screen.dart';
 import 'package:trading_app/login_page/controller/login_controller.dart';
 import 'package:trading_app/sign_in_page/sign_in.dart';
+import 'package:trading_app/validators/validator.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -16,16 +15,13 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
-    final _auth = FirebaseAuth.instance;
-    late String email;
-    late String password;
-    late final user;
     return Form(
+      key: controller.loginFormKey,
       child: Column(
         children: [
-          TextField(
-            controller: controller.emailController.value,
-            onChanged: (value) => email = value,
+          TextFormField(
+            validator: (value) => Kvalidator.validateEmail(value),
+            controller: controller.emailController,
             decoration: const InputDecoration(
               labelText: 'E-mail',
               prefixIcon: Icon(Icons.email),
@@ -34,13 +30,24 @@ class LoginForm extends StatelessWidget {
           SizedBox(
             height: KSizeScreen.getScreenHeight(context) * .018,
           ),
-          TextField(
-            controller: controller.passwordController.value,
-            onChanged: (value) => password = value,
-            obscureText: true,
-            decoration: const InputDecoration(
-              labelText: 'Password',
-              prefixIcon: Icon(Iconsax.password_check),
+          Obx(
+            () => TextFormField(
+              validator: (value) => Kvalidator.validatePassword(value),
+              controller: controller.passwordController,
+              obscureText: controller.showPassword.value,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                prefixIcon: const Icon(Iconsax.password_check),
+                suffixIcon: IconButton(
+                  onPressed: () => controller.showPassword.value =
+                      !controller.showPassword.value,
+                  icon: Icon(
+                    controller.showPassword.value
+                        ? Iconsax.eye
+                        : Iconsax.eye_slash,
+                  ),
+                ),
+              ),
             ),
           ),
           const SizedBox(
@@ -57,7 +64,7 @@ class LoginForm extends StatelessWidget {
                     child: Obx(
                       () => Checkbox(
                           value: controller.ischeck.value,
-                          onChanged: (Value) => controller.ischeck.value =
+                          onChanged: (value) => controller.ischeck.value =
                               !controller.ischeck.value),
                     ),
                   ),
@@ -80,27 +87,17 @@ class LoginForm extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: KSizeScreen.getScreenHeight(context) * .03,
+            height: KSizeScreen.getScreenHeight(context) * .025,
           ),
           SizedBox(
             width: double.infinity,
-            child:  ElevatedButton(
-                onPressed: () async {
-                  user = await _auth.signInWithEmailAndPassword(
-                      email: email, password: password);
-              
-                  if (user != null) {
-                    Get.offAll(const BottomNavigation());
-                    controller.emailController.value.clear();
-                    controller.passwordController.value.clear();
-                  }
-                },
-                // onPressed: () => Get.to(const BottomNavigation()),
-                child: const Text('Log in'),
-              ),
+            child: ElevatedButton(
+              onPressed: () => controller.login(),
+              child: const Text('Log in'),
             ),
+          ),
           SizedBox(
-            height: KSizeScreen.getScreenHeight(context) * .015,
+            height: KSizeScreen.getScreenHeight(context) * .02,
           ),
           SizedBox(
             width: double.infinity,

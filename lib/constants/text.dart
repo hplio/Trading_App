@@ -11,9 +11,12 @@ class KtextString {
   static const String onBordingSubTitle3 =
       "Over 50 technical indicators and 12 charting tools.";
 
-  static const String onBrodingImg1 = "Assets/images/onbording_img/onbording_1.png";
-  static const String onBrodingImg2 = "Assets/images/onbording_img/onbording_2.png";
-  static const String onBrodingImg3 = "Assets/images/onbording_img/onbording_3.png";
+  static const String onBrodingImg1 =
+      "Assets/images/onbording_img/onbording_1.png";
+  static const String onBrodingImg2 =
+      "Assets/images/onbording_img/onbording_2.png";
+  static const String onBrodingImg3 =
+      "Assets/images/onbording_img/onbording_3.png";
 
   static const String homeAppBarTitle = 'Good day!!';
   static const String homeAppBarSubTitle = 'Harshil Patel';
@@ -23,6 +26,8 @@ class KtextString {
       'Congratulations! Your Account Awaits: Varify Your Email to Start Trading';
 
   static const String sucssessFullT = 'Your account sucssessfully created!';
+  static const String sucssessFullDis =
+      'Welcome! In this app you can see trading chart and use various indicator tools';
 
   static const String fPasswordTitle = 'Forget Password';
   static const String fPasswordSubTitle =

@@ -45,7 +45,7 @@ class CandlestickChart extends StatefulWidget {
 }
 
 class _CandlestickChartState extends State<CandlestickChart> {
-  List<ChartData> _chartData = [];
+ final List<ChartData> _chartData = [];
   late ZoomPanBehavior _zoomPanBehavior;
   String csvfile = '';
 

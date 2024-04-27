@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:trading_app/Chart/chart.dart';
 import 'package:trading_app/NSE_Stock/nse.dart';
@@ -18,7 +16,7 @@ class LivePage extends StatefulWidget {
 class _LivePageState extends State<LivePage> {
   // ignore: non_constant_identifier_names
   bool NASDAQ = true;
-  bool NSE = false;
+  bool kNSE = false;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +86,7 @@ class _LivePageState extends State<LivePage> {
                         // return const ;
                         setState(() {
                           NASDAQ = true;
-                          NSE = false;
+                          kNSE = false;
                         });
                       },
                       style: const ButtonStyle(
@@ -103,14 +101,14 @@ class _LivePageState extends State<LivePage> {
                     child: TextButton(
                       onPressed: () {
                         setState(() {
-                          NSE = true;
+                          kNSE = true;
                           NASDAQ = false;
                         });
                       },
-                      child: const Text("NSE",style: TextStyle(fontSize: 20,color: Colors.white),),
                       style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.transparent)),
+                      child: const Text("kNSE",style: TextStyle(fontSize: 20,color: Colors.white),),
                     ),
                   )
                 ],
@@ -135,7 +133,7 @@ class _LivePageState extends State<LivePage> {
                     ],
                   ),
                 ),
-              if (NSE)
+              if (kNSE)
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
