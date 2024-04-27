@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:trading_app/Profile_page/profille_page.dart';
 import 'package:trading_app/constants/colors.dart';
-import 'package:trading_app/live_page/live_page.dart';
+import 'package:trading_app/live_page/live_page_1.dart';
 import 'package:trading_app/wishlist_page/wishlist_page.dart';
 
 class BottomNavigation extends StatelessWidget {
@@ -52,8 +52,9 @@ class BottomNavigation extends StatelessWidget {
 
 class NavigationController extends GetxController {
   Rx<int> curruntPage = 0.obs;
-  final container = [
-    const LivePage(),
+  final  container = <Widget>[
+    const LivePageScreen1(),
+    // const LivePage(),
     const WishListPage(),
     const ProfilePagge(),
   ];
