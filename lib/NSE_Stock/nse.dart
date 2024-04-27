@@ -38,7 +38,7 @@ class CandlestickChart extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final csvfile;
 
-  const CandlestickChart({super.key,required  this.csvfile});
+  const CandlestickChart({super.key, required this.csvfile});
 
   @override
   _CandlestickChartState createState() => _CandlestickChartState();
@@ -47,11 +47,11 @@ class CandlestickChart extends StatefulWidget {
 class _CandlestickChartState extends State<CandlestickChart> {
   List<ChartData> _chartData = [];
   late ZoomPanBehavior _zoomPanBehavior;
-  String csvfile='';
+  String csvfile = '';
 
   @override
   void initState() {
-    csvfile=widget.csvfile;
+    csvfile = widget.csvfile;
     _zoomPanBehavior = ZoomPanBehavior(
       // Enables pinch zooming
       enablePinching: true,
@@ -91,27 +91,87 @@ class _CandlestickChartState extends State<CandlestickChart> {
       child: SfCartesianChart(
         zoomPanBehavior: _zoomPanBehavior,
         enableAxisAnimation: true,
+        // axes: [CategoryAxis()],
+        axes: const <ChartAxis>[
+              NumericAxis(
+                // numberFormat: NumberFormat.compact(),
+                majorGridLines: MajorGridLines(width: 0),
+                // opposedPosition: false,
+                isVisible: false,
+                name: 'yAxis1',
+                interval: 100,
+                minimum: -10,
+                maximum: 90),
+                NumericAxis(
+                // numberFormat: NumberFormat.compact(),
+                majorGridLines: MajorGridLines(width: 0),
+                // opposedPosition: false,
+                isVisible: false,
+                name: 'yAxis2',
+                interval: 100,
+                minimum: 1300,
+                maximum: 1400)
+                ],
+        // primaryYAxis: const NumericAxis(
+        //   // rangePadding: ChartRangePadding.auto,
+        //   minimum: 1000,
+        //   maximum: 1200,
+        // ),
+        // enableSideBySideSeriesPlacement: true,
         primaryXAxis: const DateTimeAxis(
-          autoScrollingDelta: 7
-        ),
+            // autoScrollingDelta: 7
+            ),
         legend: const Legend(isVisible: true),
+        indicators: [
+          // AccumulationDistributionIndicator<ChartData, DateTime>(
+          //   // name: 'CandleSeries',
+          //   isVisible: true,
+          //   // dataSource: _chartData,
+          //   seriesName: 'CandleSeries',
+          //   // xValueMapper: (ChartData data, _) => data.x,
+          //   // lowValueMapper: (ChartData data, _) => data.low,
+          //   // highValueMapper: (ChartData data, _) => data.high,
+          //   // // openValueMapper: (ChartData data, _) => data.open,
+          //   // closeValueMapper: (ChartData data, _) => data.close,
+          //   // xAxisName: 'Time',
+          //   yAxisName: 'yAxis1',
+          // ),
+          RsiIndicator<dynamic, dynamic>(
+            period: 3,
+            seriesName: 'CandleSeries',
+            overbought: 70,
+            oversold: 30,
+            yAxisName: 'yAxis1',
+            signalLineColor: Colors.transparent
+            // xValueMapper: (ChartData data, _) => data.x,
+            // lowValueMapper: (ChartData data, _) => data.low,
+            // highValueMapper: (ChartData data, _) => data.high,
+            // // openValueMapper: (ChartData data, _) => data.open,
+            // closeValueMapper: (ChartData data, _) => data.close,
+          )
         
-        tooltipBehavior: TooltipBehavior(enable: true),
+        ],
+        // tooltipBehavior: TooltipBehavior(enable: true),
         // indicators: [
         //   // EmaIndicator<dynamic, dynamic>(
         //   //         seriesName: 'CandleSeries')
-        //   RsiIndicator<dynamic, dynamic>(
+        //   RsiIndicator<ChartData, DateTime>(
         //     period: 3,
         //     seriesName: 'CandleSeries',
         //     overbought: 70,
-        //     oversold: 30)
+        //     oversold: 30,
+        //     // xValueMapper: (ChartData data, _) => data.x,
+        //     // lowValueMapper: (ChartData data, _) => data.low,
+        //     // highValueMapper: (ChartData data, _) => data.high,
+        //     // // openValueMapper: (ChartData data, _) => data.open,
+        //     // closeValueMapper: (ChartData data, _) => data.close,
+        //   )
         // ],
         series: <CartesianSeries>[
           CandleSeries<ChartData, DateTime>(
             // enableTooltip: true,
-            name: 'CandleSeries',
             // trendlines: [Trendline(
-            //   type: TrendlineType.movingAverage, 
+            //   type: TrendlineType.movingAverage,
             //                     color: Colors.blue
             // )],
             dataSource: _chartData,
@@ -120,6 +180,12 @@ class _CandlestickChartState extends State<CandlestickChart> {
             highValueMapper: (ChartData data, _) => data.high,
             openValueMapper: (ChartData data, _) => data.open,
             closeValueMapper: (ChartData data, _) => data.close,
+            showIndicationForSameValues: true,
+            // xAxisName: 'Time',
+            // yAxisName: 'Price',
+            // yAxisName: 'yAxis2',
+          
+            name: 'CandleSeries',
           ),
         ],
       ),

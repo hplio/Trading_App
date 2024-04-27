@@ -140,19 +140,6 @@ class _LivePageState extends State<LivePage> {
                   scrollDirection: Axis.vertical,
                   child: Column(
                     children: [
-                      // const Text("Run"),
-                      // ElevatedButton(
-                      //     onPressed: () {
-                      //       // Navigator.push(context, CandlestickChart),
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (c) => const CandlestickChart(
-                      //               csvfile: "TCS-2.csv"),
-                      //         ),
-                      //       );
-                      //     },
-                      //     child: const Text("TCS")),
                       nse(context, "adaniport.csv", "Adani Port"),
                       nse(context, "axisbank.csv", "Axis Bank"),
                       nse(context, "coalindia.csv", "Coal India"),
