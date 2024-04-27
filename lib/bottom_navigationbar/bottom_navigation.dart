@@ -26,20 +26,23 @@ class BottomNavigation extends StatelessWidget {
           elevation: 0,
           destinations: const [
             NavigationDestination(
-                icon: Icon(
-                  Iconsax.book_saved,
-                ),
-                label: 'Live'),
+              icon: Icon(
+                Iconsax.book_saved,
+              ),
+              label: 'Live',
+            ),
             NavigationDestination(
-                icon: Icon(
-                  Iconsax.heart,
-                ),
-                label: 'WishList'),
+              icon: Icon(
+                Iconsax.heart,
+              ),
+              label: 'WishList',
+            ),
             NavigationDestination(
-                icon: Icon(
-                  Iconsax.user,
-                ),
-                label: 'Profile'),
+              icon: Icon(
+                Iconsax.user,
+              ),
+              label: 'Profile',
+            ),
           ],
         ),
       ),
@@ -52,9 +55,8 @@ class BottomNavigation extends StatelessWidget {
 
 class NavigationController extends GetxController {
   Rx<int> curruntPage = 0.obs;
-  final  container = <Widget>[
+  final container = <Widget>[
     const LivePageScreen(),
-    // const LivePage(),
     const WishListPage(),
     const ProfilePagge(),
   ];
