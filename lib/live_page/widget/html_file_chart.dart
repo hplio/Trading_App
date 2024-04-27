@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_app/live_page/NSE_Stock/nse.dart';
+import 'package:trading_app/live_page/Chart/chart.dart';
 import 'package:trading_app/constants/colors.dart';
 
-class NSEStock extends StatelessWidget {
-  const NSEStock({
+class HTMLFileChart extends StatelessWidget {
+  const HTMLFileChart({
     super.key,
     required this.fileName,
     required this.stockName,
   });
+
   final String fileName;
   final String stockName;
 
@@ -21,18 +22,19 @@ class NSEStock extends StatelessWidget {
         width: double.maxFinite,
         child: GestureDetector(
           onTap: () => Get.to(
-            () => CandlestickChart(
-              csvfile: fileName,
+            () => MainPage(
+              file: fileName,
               stockName: stockName,
             ),
           ),
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: TColor.primary,
-                )),
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: TColor.primary,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: Row(
@@ -55,7 +57,6 @@ class NSEStock extends StatelessWidget {
                   ),
                 ],
               ),
-              
             ),
           ),
         ),
