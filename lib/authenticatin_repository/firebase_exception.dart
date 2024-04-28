@@ -40,7 +40,6 @@ String getExceptionMessage(dynamic exception) {
         case 'email-already-in-use':
           errorMessage = 'Email already in use. Please use a different email.';
           break;
-        // Add more cases as needed for different Firebase authentication exceptions
         default:
           errorMessage = 'An error occurred. Please try again later.';
       }

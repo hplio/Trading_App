@@ -37,5 +37,7 @@ class KtextString {
   static const String emailResetSubTitle =
       'Your Account Security is Our Priority! We\'ve sent You a Secure Link to Safely Change Your Password and keep your Account Protected.';
 
-  static const String searchBarText = 'Search';
+  static const String searchBarText = 'Search Here!';
+
+  static const String passwordRule = 'Your reset password must contain one numeric value and one spacial character.';
 }

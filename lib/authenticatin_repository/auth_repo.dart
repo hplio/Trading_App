@@ -134,4 +134,20 @@ class AuthRepo extends GetxController {
       throw 'Something went Wrong.Please try again later.';
     }
   }
+
+  Future<void> sendResetPasswordLinkViaEmail(String email) async {
+    try {
+     return await _auth.sendPasswordResetEmail(email: email);
+    }on FirebaseAuthException catch (e) {
+      throw getErrorMessage(e);
+    } on FormatException catch (e) {
+      throw getExceptionMessage(e);
+    } on PlatformException catch (e) {
+      throw getExceptionMessage(e);
+    } on FirebaseException catch (e) {
+      throw getErrorMessage(e);
+    } catch (e) {
+      throw 'Something went Wrong.Please try again later.';
+    }
+  }
 }

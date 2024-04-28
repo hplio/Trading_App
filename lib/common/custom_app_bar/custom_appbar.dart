@@ -31,7 +31,7 @@ class CAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? IconButton(
                 onPressed: () => Get.back(),
                 icon: Icon(
-                  Iconsax.arrow_left,
+                  Iconsax.arrow_left_copy,
                   color: dark ? TColor.white : TColor.black,
                 ),
               )
