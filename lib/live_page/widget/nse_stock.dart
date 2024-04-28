@@ -28,11 +28,12 @@ class NSEStock extends StatelessWidget {
           ),
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: TColor.primary,
-                )),
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: TColor.primary,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: Row(
@@ -55,7 +56,6 @@ class NSEStock extends StatelessWidget {
                   ),
                 ],
               ),
-              
             ),
           ),
         ),

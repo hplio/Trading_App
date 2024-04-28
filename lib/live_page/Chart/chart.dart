@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: SizedBox(
-          height: KSizeScreen.getScreenHeight(context) * .6,
+          height: KSizeScreen.getScreenHeight(context) * .78,
           child: WebViewWidget(
             controller: controller,
           ),

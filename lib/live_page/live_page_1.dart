@@ -56,6 +56,7 @@ class LivePageScreen extends StatelessWidget {
                                 horizontal: 8, vertical: 5),
                             child: TextField(
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.search),
                                 errorBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,

@@ -7,17 +7,9 @@ import 'package:trading_app/authenticatin_repository/auth_repo.dart';
 import 'firebase_options.dart';
 
 void main() async {
-//  final WidgetsBinding widgetsBinding =
-//       WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ).then((FirebaseApp value) => Get.put(AuthRepo()));
   runApp(const MyApp());
 }
-
-
-// await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   ).then((FirebaseApp value) => Get.put(AuthenticationRepo()));
-//   runApp(const App());
