@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:trading_app/common/custom_app_bar/ktabbar.dart';
+import 'package:trading_app/common/loader/shimmer.dart';
 import 'package:trading_app/constants/colors.dart';
 import 'package:trading_app/constants/text.dart';
 import 'package:trading_app/live_page/screens/nasdaq_stock_screen.dart';
 import 'package:trading_app/live_page/screens/nse_stock_screen.dart';
+import 'package:trading_app/user/controller/user_controller.dart';
 
 class LivePageScreen extends StatelessWidget {
   const LivePageScreen({super.key});
@@ -11,6 +14,7 @@ class LivePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool dark = Theme.of(context).brightness == Brightness.dark;
+    final controller = Get.put(UserController());
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -32,15 +36,24 @@ class LivePageScreen extends StatelessWidget {
                         Text(
                           KtextString.homeAppBarTitle,
                           style: Theme.of(context).textTheme.labelMedium!.apply(
-                              color: dark ? TColor.grey : TColor.darkerGrey),
+                                color: dark ? TColor.grey : TColor.darkerGrey,
+                              ),
                         ),
-                        Text(
-                          KtextString.homeAppBarSubTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .apply(color: dark ? TColor.white : TColor.black),
-                        ),
+                        Obx(() {
+                          if (controller.profileLoding.value) {
+                            return const KShimmerEffect(hight: 80, width: 80);
+                          } else {
+                            return Text(
+                              controller.user.value.username,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .apply(
+                                    color: dark ? TColor.white : TColor.black,
+                                  ),
+                            );
+                          }
+                        }),
                         const SizedBox(
                           height: 24,
                         ),

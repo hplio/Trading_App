@@ -23,4 +23,26 @@ class UserReposetory extends GetxController {
       throw 'Something went wrong.please try again later.';
     }
   }
+
+  Future<UserModel> fatchUserDetaile() async {
+    try {
+      final documentSnapshot = await _db
+          .collection('UserDetails')
+          .doc(authController.curuuntUser?.uid)
+          .get();
+      if (documentSnapshot.exists) {
+        return UserModel.fromSnapshot(documentSnapshot);
+      } else {
+        return UserModel.empty();
+      }
+    } on FirebaseException catch (e) {
+      throw getErrorMessage(e);
+    } on FormatException catch (e) {
+      throw getExceptionMessage(e);
+    } on PlatformException catch (e) {
+      throw getExceptionMessage(e);
+    } catch (e) {
+      throw 'Something went wrong.please try again later.';
+    }
+  }
 }

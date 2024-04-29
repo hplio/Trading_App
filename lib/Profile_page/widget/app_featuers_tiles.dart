@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:trading_app/Profile_page/privacy_policy_page.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
 
 class AppFeatureTiles extends StatelessWidget {
@@ -15,21 +17,21 @@ class AppFeatureTiles extends StatelessWidget {
         children: [
           ProfileTile(
             onPress: () {},
-            iconData: Iconsax.verify_copy,
-            title: 'Super Saver Pack',
-            subTitle: 'Ultra Trader Pack, Power Inveestor Pack',
+            iconData: Icons.drag_indicator,
+            title: 'Indicator',
+            subTitle: 'We Provide Information On Indicator Used In Our App',
           ),
           ProfileTile(
-            onPress: () {},
-            iconData: Iconsax.money_2_copy,
-            title: 'Financial Products',
-            subTitle: 'Mutual Funds, Insurance, Gold, IPO',
+            onPress: () => Get.to(const PrivacyPolicyPage()),
+            iconData: Icons.privacy_tip,
+            title: 'Privacy & Policy',
+            subTitle: 'Detaile Information On Our App Privacy Policy',
           ),
           ProfileTile(
-            onPress: () {},
-            iconData: Iconsax.box_add_copy,
-            title: 'Derivatives',
-            subTitle: 'Quick Option Trade, Option Chain',
+            onPress: ()=>const AboutDialog(),
+            iconData: Icons.inbox_sharp,
+            title: 'About Us',
+            subTitle: 'Deteile Information On APP',
           ),
           ProfileTile(
             onPress: () {},

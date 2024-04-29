@@ -6,7 +6,28 @@ import 'package:trading_app/user/user_repository.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
+  @override
+  void onInit() {
+    fatchUserRecord();
+    super.onInit();
+  }
+
+  
   final userRepo = Get.put(UserReposetory());
+  final profileLoding = false.obs;
+  Rx<UserModel> user = UserModel.empty().obs;
+
+  Future<void> fatchUserRecord() async {
+    try {
+      profileLoding.value = true;
+      final user = await userRepo.fatchUserDetaile();
+      this.user(user);
+    } catch (e) {
+      user(UserModel.empty());
+    } finally {
+      profileLoding.value = false;
+    }
+  }
 
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {

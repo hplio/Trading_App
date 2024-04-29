@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:trading_app/Profile_page/widget/app_featuers_tiles.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
 import 'package:trading_app/authenticatin_repository/auth_repo.dart';
+import 'package:trading_app/common/loader/shimmer.dart';
 import 'package:trading_app/constants/colors.dart';
+import 'package:trading_app/user/controller/user_controller.dart';
 
 class ProfilePagge extends StatelessWidget {
   const ProfilePagge({super.key});
@@ -11,6 +15,7 @@ class ProfilePagge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool dark = Theme.of(context).brightness == Brightness.dark;
+    final controller = UserController.instance;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -24,12 +29,22 @@ class ProfilePagge extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          'Harshil',
-                          style: Theme.of(context).textTheme.bodyLarge!.apply(
-                                color: dark ? TColor.white : TColor.darkerGrey,
-                              ),
-                        ),
+                        Obx(() {
+                          if (controller.profileLoding.value) {
+                            return const KShimmerEffect(hight: 80, width: 80);
+                          } else {
+                            return Text(
+                              controller.user.value.username,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .apply(
+                                    color:
+                                        dark ? TColor.white : TColor.darkerGrey,
+                                  ),
+                            );
+                          }
+                        }),
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
@@ -42,12 +57,27 @@ class ProfilePagge extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          'Id: 46578 ',
-                          style: Theme.of(context).textTheme.bodyLarge!.apply(
-                                color: dark ? TColor.white : TColor.darkerGrey,
+                        Obx(() {
+                          if (controller.profileLoding.value) {
+                            return const KShimmerEffect(hight: 80, width: 80);
+                          } else {
+                            return SizedBox(
+                              width: 90,
+                              child: Text(
+                                'Id: ${controller.user.value.id}',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .apply(
+                                      color:
+                                          dark ? TColor.white : TColor.darkerGrey,
+                                    ),
                               ),
-                        ),
+                            );
+                          }
+                        }),
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
@@ -67,7 +97,7 @@ class ProfilePagge extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
-                  'App Features',
+                  'App Information',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
