@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:csv/csv.dart';
 import 'package:trading_app/common/custom_app_bar/custom_appbar.dart';
@@ -85,9 +86,100 @@ class _CandlestickChartState extends State<CandlestickChart> {
   bool stochasticVisible = false;
   bool tmaVisible = false;
 
+  // ignore: non_constant_identifier_names
+  // List<TechnicalIndicator<dynamic, dynamic>> Indicator=[];
+
+  // ignore: non_constant_identifier_names
+  List<TechnicalIndicator<dynamic, dynamic>> Indicators() {
+    // var indicator;
+    List<TechnicalIndicator<dynamic, dynamic>> Indicator = [];
+    Indicator.clear();
+
+    if (controller.adVisible.value) {
+      Indicator.add(
+        AccumulationDistributionIndicator<ChartData, DateTime>(
+          isVisible: controller.adVisible.value,
+          seriesName: 'CandleSeries',
+          yAxisName: 'yAxis1',
+        ),
+      );
+    } else if (controller.rsiVisible.value) {
+      Indicator.add(
+        RsiIndicator<dynamic, dynamic>(
+          isVisible: controller.rsiVisible.value,
+          period: 3,
+          seriesName: 'CandleSeries',
+          overbought: 70,
+          oversold: 30,
+          yAxisName: 'yAxis1',
+          signalLineColor: Colors.transparent,
+        ),
+      );
+    } else if (controller.atrVisible.value) {
+      Indicator.add(
+        AtrIndicator<dynamic, dynamic>(
+          isVisible: controller.atrVisible.value,
+          period: 3,
+          seriesName: 'CandleSeries',
+          yAxisName: 'yAxis1',
+        ),
+      );
+    } else if (controller.emaVisible.value) {
+      Indicator.add(
+        EmaIndicator<dynamic, dynamic>(
+          isVisible: controller.emaVisible.value,
+          seriesName: 'CandleSeries',
+        ),
+      );
+    } else if (controller.macdVisible.value) {
+      Indicator.add(
+        MacdIndicator<dynamic, dynamic>(
+          isVisible: controller.macdVisible.value,
+          longPeriod: 5,
+          shortPeriod: 2,
+          seriesName: 'CandleSeries',
+          yAxisName: 'yAxis3',
+        ),
+      );
+    } else if (controller.smaVisible.value) {
+      Indicator.add(
+        SmaIndicator<dynamic, dynamic>(
+          isVisible: controller.smaVisible.value,
+          seriesName: 'CandleSeries',
+          yAxisName: 'yAxis2',
+          valueField: 'close',
+        ),
+      );
+    } else if (controller.stochasticVisible.value) {
+      Indicator.add(
+        StochasticIndicator<dynamic, dynamic>(
+          isVisible: controller.stochasticVisible.value,
+          seriesName: 'CandleSeries',
+          yAxisName: 'yAxis4',
+          kPeriod: 2,
+          dPeriod: 3,
+        ),
+      );
+    } else if (controller.tmaVisible.value) {
+      Indicator.add(
+        TmaIndicator<ChartData, dynamic>(
+          isVisible: controller.tmaVisible.value,
+          seriesName: 'CandleSeries',
+          yAxisName: 'yAxis2',
+          valueField: 'low',
+        ),
+      );
+    } else {
+      Indicator.clear();
+    }
+
+    return Indicator;
+  }
+
+  final controller = Get.put(NSEController());
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NSEController());
     String selectedItem = 'SIMPLE';
     return Scaffold(
       appBar: CAppBar(
@@ -96,149 +188,95 @@ class _CandlestickChartState extends State<CandlestickChart> {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          child: Column(
-            children: [
-              KDropdownBtn(
-                list: [
-                  selectedItem,
-                  'AD',
-                  'RSI',
-                  'ATR',
-                  'EMA',
-                  'MACD',
-                  'SMA',
-                  'Stochastic',
-                  'TMA'
-                ],
-                selectedItem: selectedItem,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SizedBox(
-                height: KSizeScreen.getScreenHeight(context)*.78,
-                child: Obx(
-                  () => SfCartesianChart(
-                    zoomPanBehavior: _zoomPanBehavior,
-                    enableAxisAnimation: true,
-                    // axes: [CategoryAxis()],
-                    axes: const <ChartAxis>[
-                      NumericAxis(
-                          // numberFormat: NumberFormat.compact(),
-                          majorGridLines: MajorGridLines(width: 0),
-                          // opposedPosition: false,
-                          isVisible: false,
-                          name: 'yAxis1',
-                          interval: 100,
-                          minimum: -10,
-                          maximum: 90),
-                      NumericAxis(
-                          plotOffset: 3,
-                          // numberFormat: NumberFormat.compact(),
-                          majorGridLines: MajorGridLines(width: 0),
-                          // opposedPosition: false,
-                          isVisible: false,
-                          name: 'yAxis3',
-                          interval: 1,
-                          minimum: -5,
-                          maximum: 5),
-                      NumericAxis(
-                          // numberFormat: NumberFormat.compact(),
-                          majorGridLines: MajorGridLines(width: 0),
-                          // opposedPosition: false,
-                          isVisible: false,
-                          name: 'yAxis2',
-                          interval: 100,
-                          minimum: 1300,
-                          maximum: 1400),
-                      NumericAxis(
-                          // numberFormat: NumberFormat.compact(),
-                          majorGridLines: MajorGridLines(width: 0),
-                          // opposedPosition: false,
-                          isVisible: false,
-                          name: 'yAxis4',
-                          interval: 100,
-                          minimum: -60,
-                          maximum: 140)
-                    ],
-                    primaryXAxis: const DateTimeAxis(),
-                    legend: const Legend(isVisible: true),
-                    indicators: [
-                      AccumulationDistributionIndicator<ChartData, DateTime>(
-                        isVisible: controller.adVisible.value,
-                        seriesName: 'CandleSeries',
-                        yAxisName: 'yAxis1',
-                      ),
-                      RsiIndicator<dynamic, dynamic>(
-                        isVisible: controller.rsiVisible.value,
-                        period: 3,
-                        seriesName: 'CandleSeries',
-                        overbought: 70,
-                        oversold: 30,
-                        yAxisName: 'yAxis1',
-                        signalLineColor: Colors.transparent,
-                      ),
-                      AtrIndicator<dynamic, dynamic>(
-                        isVisible: controller.atrVisible.value,
-                        period: 3,
-                        seriesName: 'CandleSeries',
-                        yAxisName: 'yAxis1',
-                      ),
-                      EmaIndicator<dynamic, dynamic>(
-                        isVisible: controller.emaVisible.value,
-                        seriesName: 'CandleSeries',
-                      ),
-                      MacdIndicator<dynamic, dynamic>(
-                        isVisible: controller.macdVisible.value,
-                        longPeriod: 5,
-                        shortPeriod: 2,
-                        seriesName: 'CandleSeries',
-                        yAxisName: 'yAxis3',
-                      ),
-                      SmaIndicator<dynamic, dynamic>(
-                        isVisible: controller.smaVisible.value,
-                        seriesName: 'CandleSeries',
-                        yAxisName: 'yAxis2',
-                        valueField: 'close',
-                      ),
-                      StochasticIndicator<dynamic, dynamic>(
-                        isVisible: controller.stochasticVisible.value,
-                        seriesName: 'CandleSeries',
-                        yAxisName: 'yAxis4',
-                        kPeriod: 2,
-                        dPeriod: 3,
-                      ),
-                      TmaIndicator<ChartData, dynamic>(
-                        isVisible: controller.tmaVisible.value,
-                        seriesName: 'CandleSeries',
-                        yAxisName: 'yAxis2',
-                        valueField: 'low',
-                      ),
-                    ],
-                    tooltipBehavior: TooltipBehavior(enable: true),
-                
-                    series: <CartesianSeries>[
-                      CandleSeries<ChartData, DateTime>(
-                        enableTooltip: true,
-                        dataSource: _chartData,
-                        xValueMapper: (ChartData data, _) => data.x,
-                        lowValueMapper: (ChartData data, _) => data.low,
-                        highValueMapper: (ChartData data, _) => data.high,
-                        openValueMapper: (ChartData data, _) => data.open,
-                        closeValueMapper: (ChartData data, _) => data.close,
-                        showIndicationForSameValues: true,
-                        name: 'CandleSeries',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          KDropdownBtn(
+            list: [
+              selectedItem,
+              'AD',
+              'RSI',
+              'ATR',
+              'EMA',
+              'MACD',
+              'SMA',
+              'Stochastic',
+              'TMA'
             ],
+            selectedItem: selectedItem,
           ),
-        ),
+          const SizedBox(
+            height: 16,
+          ),
+          SizedBox(
+            height: KSizeScreen.getScreenHeight(context) * .78,
+            child: Obx(
+              () => SfCartesianChart(
+                zoomPanBehavior: _zoomPanBehavior,
+                enableAxisAnimation: true,
+                // axes: [CategoryAxis()],
+                axes: const <ChartAxis>[
+                  NumericAxis(
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis1',
+                      interval: 100,
+                      minimum: -10,
+                      maximum: 90),
+                  NumericAxis(
+                      plotOffset: 3,
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis3',
+                      interval: 1,
+                      minimum: -5,
+                      maximum: 5),
+                  NumericAxis(
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis2',
+                      interval: 100,
+                      minimum: 1300,
+                      maximum: 1400),
+                  NumericAxis(
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis4',
+                      interval: 100,
+                      minimum: -60,
+                      maximum: 140)
+                ],
+                primaryXAxis: const DateTimeAxis(),
+                legend: const Legend(isVisible: true),
+                indicators: Indicators(),
+                
+                tooltipBehavior: TooltipBehavior(enable: true),
+
+                series: <CartesianSeries>[
+                  CandleSeries<ChartData, DateTime>(
+                    enableTooltip: true,
+                    dataSource: _chartData,
+                    xValueMapper: (ChartData data, _) => data.x,
+                    lowValueMapper: (ChartData data, _) => data.low,
+                    highValueMapper: (ChartData data, _) => data.high,
+                    openValueMapper: (ChartData data, _) => data.open,
+                    closeValueMapper: (ChartData data, _) => data.close,
+                    showIndicationForSameValues: true,
+                    name: 'CandleSeries',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
