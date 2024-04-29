@@ -45,7 +45,6 @@ class NSEController extends GetxController {
   }
 
   List<TechnicalIndicator<dynamic, dynamic>> indicators() {
-    // var indicator;
     List<TechnicalIndicator<dynamic, dynamic>> indicator = [];
     indicator.clear();
 
@@ -66,7 +65,7 @@ class NSEController extends GetxController {
           overbought: 70,
           oversold: 30,
           yAxisName: 'yAxis1',
-          signalLineColor: Colors.transparent,
+          // signalLineColor: Colors.transparent,
         ),
       );
     } else if (atrVisible.value) {
