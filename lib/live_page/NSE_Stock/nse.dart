@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ import 'package:trading_app/common/custom_app_bar/custom_appbar.dart';
 import 'package:trading_app/constants/size.dart';
 import 'package:trading_app/live_page/controller/nse_controller.dart';
 import 'package:trading_app/live_page/widget/dropdown_btn.dart';
+import 'package:http/http.dart' as http;
 
 class ChartData {
   final DateTime x;
@@ -21,9 +24,9 @@ class ChartData {
 
 class CandlestickChart extends StatefulWidget {
   const CandlestickChart(
-      {super.key, required this.csvfile, required this.stockName});
+      {super.key, required this.stock, required this.stockName});
 
-  final String csvfile;
+  final String stock;
   final String stockName;
 
   @override
@@ -33,47 +36,120 @@ class CandlestickChart extends StatefulWidget {
 class _CandlestickChartState extends State<CandlestickChart> {
   final List<ChartData> _chartData = [];
   late ZoomPanBehavior _zoomPanBehavior;
-  String csvfile = '';
+  // String csvfile = '';
 
   @override
   void initState() {
-    csvfile = widget.csvfile;
+    // csvfile = widget.csvfile;
+    stock = widget.stock;
     _zoomPanBehavior = ZoomPanBehavior(
       enablePinching: true,
       enableDoubleTapZooming: true,
       zoomMode: ZoomMode.x,
       enablePanning: true,
     );
-    _loadCSVData();
+    // _loadCSVData();
+    fetchData();
     super.initState();
   }
 
-  Future<void> _loadCSVData() async {
+  // Future<void> _loadCSVData() async {
+  //   try {
+  //     final rawData = await rootBundle.loadString('Assets/csv/$csvfile');
+  //     List<List<dynamic>> listData =
+  //         const CsvToListConverter().convert(rawData);
+  //     // print(listData);
+  //     // Assuming the CSV columns are in the order: Date, Open, High, Low, Close
+  //     for (var row in listData) {
+  //       // print(row[1].runtimeType);
+  //       final date = DateTime.parse(row[0]);
+  //       final open = double.parse(row[1].toString());
+  //       final high = double.parse(row[2].toString());
+  //       final low = double.parse(row[3].toString());
+  //       final close = double.parse(row[4].toString());
+  //       // final open = row[1];
+  //       // final high = row[2];
+  //       // final low = row[3];
+  //       // final close = row[4];
+  //       _chartData.add(ChartData(date, open, high, low, close));
+  //       setState(() {
+  //         // Update state with loaded data
+  //       });
+  //     }
+  //     print(_chartData);
+  //   } catch (e) {
+  //     throw e.toString();
+  //   }
+  // }
+  var interval = '1minute';
+  var stock;
+  // var startDate='2024-02-20';
+  // var endDate='2024-02-26';
+  Future<void> fetchData() async {
+    String url =
+        "https://api.upstox.com/v2/historical-candle/$stock/$interval/${endDate.year}-0${endDate.month}-${endDate.day}/${startDate.year}-0${startDate.month}-${startDate.day}";
+
     try {
-      final rawData = await rootBundle.loadString('Assets/csv/$csvfile');
-      List<List<dynamic>> listData =
-          const CsvToListConverter().convert(rawData);
+      final response = await http.get(Uri.parse(url));
 
-      // Assuming the CSV columns are in the order: Date, Open, High, Low, Close
-      for (var row in listData) {
-        // print(row[1].runtimeType);
-        final date = DateTime.parse(row[0]);
-        final open = double.parse(row[1].toString());
-        final high = double.parse(row[2].toString());
-        final low = double.parse(row[3].toString());
-        final close = double.parse(row[4].toString());
-        // final open = row[1];
-        // final high = row[2];
-        // final low = row[3];
-        // final close = row[4];
+      if (response.statusCode == 200) {
+        // Request successful, process response here
+        final responseData = json.decode(response.body);
+        final authToken = responseData[
+            'data']; // Assuming the token key in the response JSON is 'token'
+        final candle = authToken['candles'];
+        // final a = candle.toString();
+        // String dateTimeString = '2024-03-11T15:29:00+05:30';
+        // var date = candle.map((row) => row[0]).toList();
+        // var datetime;
+        // List<String> time=[];
+        // print(candle);
 
-        _chartData.add(ChartData(date, open, high, low, close));
-        setState(() {
-          // Update state with loaded data
-        });
+        for (var row in candle) {
+          // print(row[1].runtimeType);
+          final date = DateTime.parse(row[0]);
+          final open = double.parse(row[1].toString());
+          final high = double.parse(row[2].toString());
+          final low = double.parse(row[3].toString());
+          final close = double.parse(row[4].toString());
+
+          _chartData.add(ChartData(date, open, high, low, close));
+
+          setState(() {
+            // Update state with loaded data
+          });
+        }
+
+        print(_chartData);
+
+        // print('Response data:${date}');
+        // print('Response data:${a}');
+        // Remove the timezone offset
+        // int offsetIndex = date.lastIndexOf('+');
+        // if (offsetIndex != -1) {
+        //   date = date.substring(0, offsetIndex);
+        // }
+        // // Parse the string into a DateTime object
+        // DateTime Date = DateTime.parse(date);
+        // Fetch only the first column
+        //       final Date = DateTime.parse(candle.map((row) => row[0]).toString());
+        //       final Open = double.parse(candle.map((row) => row[1]).toString());
+        //       final High = double.parse(candle.map((row) => row[2]).toString());
+        //       final Low = double.parse(candle.map((row) => row[3]).toString());
+        //       final Close = double.parse(candle.map((row) => row[4]).toString());
+        //       final Volumn = candle.map((row) => row[5]).toList();
+        // _chartData.add(ChartData(Date, Open, High, Low, Close));
+        // Print the first column
+        // print('open column: $a');
+        // print('Response: ${response.body}');
+      } else {
+        print(url);
+        // Request failed
+        print('Failed to fetch data: ${response.statusCode}');
       }
     } catch (e) {
-      throw e.toString();
+      // Error during request
+      print('Error: $e');
     }
   }
 
@@ -178,6 +254,41 @@ class _CandlestickChartState extends State<CandlestickChart> {
 
   final controller = Get.put(NSEController());
 
+  DateTime endDate = DateTime.now();
+  DateTime startDate = DateTime(2024,04,20);
+
+  // TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: endDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null && pickedDate != endDate) {
+      setState(() {
+        endDate = pickedDate;
+        fetchData();
+      });
+    }
+  }
+
+  Future<void> _selectStartDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: startDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null && pickedDate != startDate) {
+      setState(() {
+        startDate = pickedDate;
+        fetchData();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String selectedItem = 'SIMPLE';
@@ -208,8 +319,40 @@ class _CandlestickChartState extends State<CandlestickChart> {
           const SizedBox(
             height: 16,
           ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () => _selectStartDate(context),
+                child: Text('Select start Date'),
+              ),
+              ElevatedButton(
+                onPressed: () => _selectDate(context),
+                child: Text('Select end Date'),
+              ),
+              DropdownButton<String>(
+                value: interval,
+                onChanged: (newValue) {
+                  setState(() {
+                    interval = newValue!;
+                    fetchData();
+                  });
+                },
+                items: <String>['1minute', '30minute','day','week', 'month']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            
+            ],
+          ),
+          Text(
+            'Selected Date: ${endDate.toString()}',
+          ),
           SizedBox(
-            height: KSizeScreen.getScreenHeight(context) * .78,
+            // height: KSizeScreen.getScreenHeight(context) * .78,
             child: Obx(
               () => SfCartesianChart(
                 zoomPanBehavior: _zoomPanBehavior,
@@ -257,7 +400,7 @@ class _CandlestickChartState extends State<CandlestickChart> {
                 primaryXAxis: const DateTimeAxis(),
                 legend: const Legend(isVisible: true),
                 indicators: Indicators(),
-                
+
                 tooltipBehavior: TooltipBehavior(enable: true),
 
                 series: <CartesianSeries>[
