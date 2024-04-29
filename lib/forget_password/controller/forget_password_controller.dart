@@ -27,13 +27,14 @@ class ForgetPasswordController extends GetxController {
         KFullScreenLoder.stopLoading();
         return;
       }
-      KFullScreenLoder.stopLoading();
+
       await AuthRepo.instance.sendResetPasswordLinkViaEmail(fEmail.text.trim());
       KLoader.successSnackBar(
         title: 'Email sent',
         massage:
             'Email link sent to reset password please check your mail box.',
       );
+      KFullScreenLoder.stopLoading();
       Get.offAll(
         () => ResetPasswordScreen(
           email: fEmail.text.trim(),
@@ -55,8 +56,8 @@ class ForgetPasswordController extends GetxController {
         return;
       }
 
-      KFullScreenLoder.stopLoading();
       await AuthRepo.instance.sendResetPasswordLinkViaEmail(email);
+      KFullScreenLoder.stopLoading();
       KLoader.successSnackBar(
         title: 'Email sent',
         massage:
