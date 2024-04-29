@@ -6,10 +6,10 @@ import 'package:trading_app/constants/colors.dart';
 class NSEStock extends StatelessWidget {
   const NSEStock({
     super.key,
-    required this.fileName,
+    required this.stock,
     required this.stockName,
   });
-  final String fileName;
+  final String stock;
   final String stockName;
 
   @override
@@ -22,7 +22,7 @@ class NSEStock extends StatelessWidget {
         child: GestureDetector(
           onTap: () => Get.to(
             () => CandlestickChart(
-              csvfile: fileName,
+              stock: stock,
               stockName: stockName,
             ),
           ),

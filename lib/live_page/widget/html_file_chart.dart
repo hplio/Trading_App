@@ -6,12 +6,14 @@ import 'package:trading_app/constants/colors.dart';
 class HTMLFileChart extends StatelessWidget {
   const HTMLFileChart({
     super.key,
-    required this.fileName,
+    // required this.fileName,
     required this.stockName,
+    required this.symbol,
   });
 
-  final String fileName;
+  // final String fileName;
   final String stockName;
+  final String symbol;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +25,9 @@ class HTMLFileChart extends StatelessWidget {
         child: GestureDetector(
           onTap: () => Get.to(
             () => MainPage(
-              file: fileName,
+              // file: fileName,
               stockName: stockName,
+              symbol: symbol,
             ),
           ),
           child: Container(
