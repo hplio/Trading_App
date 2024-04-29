@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+// import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:csv/csv.dart';
+// import 'package:csv/csv.dart';
 import 'package:trading_app/common/custom_app_bar/custom_appbar.dart';
 import 'package:trading_app/constants/size.dart';
-import 'package:trading_app/live_page/NSE_Stock/NSE_chart/chart_modal/chat_modal.dart';
-import 'package:trading_app/live_page/NSE_Stock/NSE_chart/sock_chart.dart';
+// import 'package:trading_app/live_page/NSE_Stock/NSE_chart/chart_modal/chat_modal.dart';
+// import 'package:trading_app/live_page/NSE_Stock/NSE_chart/sock_chart.dart';
 import 'package:trading_app/live_page/controller/nse_controller.dart';
 import 'package:trading_app/live_page/widget/dropdown_btn.dart';
 import 'package:http/http.dart' as http;
