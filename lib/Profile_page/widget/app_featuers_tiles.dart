@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:trading_app/Profile_page/privacy_policy_page.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
+import 'package:trading_app/Profile_page/widget/show_about_us.dart';
 
 class AppFeatureTiles extends StatelessWidget {
   const AppFeatureTiles({
@@ -28,7 +29,7 @@ class AppFeatureTiles extends StatelessWidget {
             subTitle: 'Detaile Information On Our App Privacy Policy',
           ),
           ProfileTile(
-            onPress: ()=>const AboutDialog(),
+            onPress: ()=>ShowAppDialog.showDialog(context),
             iconData: Icons.inbox_sharp,
             title: 'About Us',
             subTitle: 'Deteile Information On APP',

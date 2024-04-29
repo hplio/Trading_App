@@ -83,7 +83,7 @@ class _CandlestickChartState extends State<CandlestickChart> {
   //   }
   // }
   var interval = '1minute';
-  var stock;
+  var stock='';
   // var startDate='2024-02-20';
   // var endDate='2024-02-26';
   Future<void> fetchData() async {
@@ -163,95 +163,7 @@ class _CandlestickChartState extends State<CandlestickChart> {
   bool stochasticVisible = false;
   bool tmaVisible = false;
 
-  // ignore: non_constant_identifier_names
-  // List<TechnicalIndicator<dynamic, dynamic>> Indicator=[];
-
-  // ignore: non_constant_identifier_names
-  List<TechnicalIndicator<dynamic, dynamic>> Indicators() {
-    // var indicator;
-    List<TechnicalIndicator<dynamic, dynamic>> Indicator = [];
-    Indicator.clear();
-
-    if (controller.adVisible.value) {
-      Indicator.add(
-        AccumulationDistributionIndicator<ChartData, DateTime>(
-          isVisible: controller.adVisible.value,
-          seriesName: 'CandleSeries',
-          yAxisName: 'yAxis1',
-        ),
-      );
-    } else if (controller.rsiVisible.value) {
-      Indicator.add(
-        RsiIndicator<dynamic, dynamic>(
-          isVisible: controller.rsiVisible.value,
-          period: 3,
-          seriesName: 'CandleSeries',
-          overbought: 70,
-          oversold: 30,
-          yAxisName: 'yAxis1',
-          signalLineColor: Colors.transparent,
-        ),
-      );
-    } else if (controller.atrVisible.value) {
-      Indicator.add(
-        AtrIndicator<dynamic, dynamic>(
-          isVisible: controller.atrVisible.value,
-          period: 3,
-          seriesName: 'CandleSeries',
-          yAxisName: 'yAxis1',
-        ),
-      );
-    } else if (controller.emaVisible.value) {
-      Indicator.add(
-        EmaIndicator<dynamic, dynamic>(
-          isVisible: controller.emaVisible.value,
-          seriesName: 'CandleSeries',
-        ),
-      );
-    } else if (controller.macdVisible.value) {
-      Indicator.add(
-        MacdIndicator<dynamic, dynamic>(
-          isVisible: controller.macdVisible.value,
-          longPeriod: 5,
-          shortPeriod: 2,
-          seriesName: 'CandleSeries',
-          yAxisName: 'yAxis3',
-        ),
-      );
-    } else if (controller.smaVisible.value) {
-      Indicator.add(
-        SmaIndicator<dynamic, dynamic>(
-          isVisible: controller.smaVisible.value,
-          seriesName: 'CandleSeries',
-          yAxisName: 'yAxis2',
-          valueField: 'close',
-        ),
-      );
-    } else if (controller.stochasticVisible.value) {
-      Indicator.add(
-        StochasticIndicator<dynamic, dynamic>(
-          isVisible: controller.stochasticVisible.value,
-          seriesName: 'CandleSeries',
-          yAxisName: 'yAxis4',
-          kPeriod: 2,
-          dPeriod: 3,
-        ),
-      );
-    } else if (controller.tmaVisible.value) {
-      Indicator.add(
-        TmaIndicator<ChartData, dynamic>(
-          isVisible: controller.tmaVisible.value,
-          seriesName: 'CandleSeries',
-          yAxisName: 'yAxis2',
-          valueField: 'low',
-        ),
-      );
-    } else {
-      Indicator.clear();
-    }
-
-    return Indicator;
-  }
+  
 
   final controller = Get.put(NSEController());
 
@@ -325,11 +237,14 @@ class _CandlestickChartState extends State<CandlestickChart> {
               children: [
                 ElevatedButton(
                   onPressed: () => _selectStartDate(context),
-                  child: Text('Select start Date'),
+                  child: const Text('Select start Date'),
+                ),
+                const SizedBox(
+                  width: 12,
                 ),
                 ElevatedButton(
                   onPressed: () => _selectDate(context),
-                  child: Text('Select end Date'),
+                  child: const Text('Select end Date'),
                 ),
                 DropdownButton<String>(
                   value: interval,
@@ -399,7 +314,7 @@ class _CandlestickChartState extends State<CandlestickChart> {
                   ],
                   primaryXAxis: const DateTimeAxis(),
                   legend: const Legend(isVisible: true),
-                  indicators: Indicators(),
+                  indicators: controller.indicators(),
         
                   tooltipBehavior: TooltipBehavior(enable: true),
         

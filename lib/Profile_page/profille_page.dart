@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:trading_app/Profile_page/user_detaile_page.dart';
 import 'package:trading_app/Profile_page/widget/app_featuers_tiles.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
 import 'package:trading_app/authenticatin_repository/auth_repo.dart';
@@ -71,8 +71,9 @@ class ProfilePagge extends StatelessWidget {
                                     .textTheme
                                     .bodyLarge!
                                     .apply(
-                                      color:
-                                          dark ? TColor.white : TColor.darkerGrey,
+                                      color: dark
+                                          ? TColor.white
+                                          : TColor.darkerGrey,
                                     ),
                               ),
                             );
@@ -121,7 +122,7 @@ class ProfilePagge extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: ProfileTile(
-                  onPress: () {},
+                  onPress: () => Get.to(() => const UserDetailPage()),
                   iconData: Icons.settings,
                   title: 'My App',
                   subTitle: 'Edit Your Profile',
