@@ -39,18 +39,19 @@ class KCirculerImage extends StatelessWidget {
         child: Center(
           child: isNetworkImg
               ? CachedNetworkImage(
+                fit: fit,
                   color: imgColor,
-                  progressIndicatorBuilder: (context, url, progress) =>
+                  progressIndicatorBuilder: (_, url, progress) =>
                       const KShimmerEffect(
                     hight: 55,
                     width: 55,
                     radius: 55,
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (_, url, error) => const Icon(Icons.error),
                   imageUrl: imgString,
                 )
               : Image(
-                  // fit: fit,
+                  fit: fit,
                   image: AssetImage(
                     imgString,
                   ),

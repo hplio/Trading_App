@@ -93,7 +93,8 @@ class UserDetailPage extends StatelessWidget {
                     title: 'User Id',
                     subTitle: controller.user.value.id,
                     iconData: Iconsax.copy_copy,
-                    onPressed: () {},
+                    onPressed: () =>
+                        controller.copyId(controller.user.value.id),
                   );
                 }
               }),

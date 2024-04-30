@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_app/common/add_to_wishlist/ficon.dart';
 import 'package:trading_app/live_page/NSE_Stock/nse.dart';
 import 'package:trading_app/constants/colors.dart';
 
@@ -49,11 +50,13 @@ class NSEStock extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add,
-                      color: dark ? TColor.white : TColor.darkerGrey,
                     ),
                   ),
+                  // const FIcon(
+                  //   stockId: '',
+                  // ),
                 ],
               ),
             ),

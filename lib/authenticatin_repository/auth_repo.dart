@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trading_app/authenticatin_repository/firebase_exception.dart';
 import 'package:trading_app/bottom_navigationbar/bottom_navigation.dart';
+import 'package:trading_app/local_storage/storage_utility.dart';
 import 'package:trading_app/login_page/login_page.dart';
 import 'package:trading_app/onbording_page/onbording.dart';
 import 'package:trading_app/sign_in_page/email_verification.dart';
@@ -21,10 +22,11 @@ class AuthRepo extends GetxController {
   final _auth = FirebaseAuth.instance;
   User? get curuuntUser => _auth.currentUser;
 
-  screenRedirect() {
+  screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
+        await KLocalStorage.init(user.uid);
         Get.offAll(
           () => const BottomNavigation(),
         );
@@ -137,8 +139,8 @@ class AuthRepo extends GetxController {
 
   Future<void> sendResetPasswordLinkViaEmail(String email) async {
     try {
-     return await _auth.sendPasswordResetEmail(email: email);
-    }on FirebaseAuthException catch (e) {
+      return await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
       throw getErrorMessage(e);
     } on FormatException catch (e) {
       throw getExceptionMessage(e);

@@ -53,4 +53,6 @@ class ChangeNameController extends GetxController {
       KLoader.errorSnackBar(title: 'oh snap!', massage: e.toString());
     }
   }
+
+ 
 }

@@ -17,6 +17,7 @@ class ProfilePagge extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool dark = Theme.of(context).brightness == Brightness.dark;
     final controller = UserController.instance;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -92,7 +93,8 @@ class ProfilePagge extends StatelessWidget {
                               },
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () =>
+                                  controller.copyId(controller.user.value.id),
                               icon: Icon(
                                 Iconsax.copy_copy,
                                 size: 15,
@@ -120,7 +122,6 @@ class ProfilePagge extends StatelessWidget {
                                 imgString: image,
                                 hight: 85,
                                 width: 85,
-                                
                                 isNetworkImg: networkImage.isNotEmpty,
                               );
                       }),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_app/common/add_to_wishlist/ficon.dart';
 import 'package:trading_app/live_page/Chart/chart.dart';
 import 'package:trading_app/constants/colors.dart';
 
@@ -17,7 +18,7 @@ class HTMLFileChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool dark = Theme.of(context).brightness == Brightness.dark;
+    // final bool dark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SizedBox(
@@ -53,11 +54,11 @@ class HTMLFileChart extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add,
-                      color: dark ? TColor.white : TColor.darkerGrey,
                     ),
                   ),
+                  // const FIcon(stockId: '',),
                 ],
               ),
             ),
@@ -67,3 +68,10 @@ class HTMLFileChart extends StatelessWidget {
     );
   }
 }
+// IconButton(
+                  //   onPressed: () {},
+                  //   icon: Icon(
+                  //     Icons.add,
+                  //     color: dark ? TColor.white : TColor.darkerGrey,
+                  //   ),
+                  // ),

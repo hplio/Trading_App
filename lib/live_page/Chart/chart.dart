@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -76,10 +75,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 // }
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key, required this.symbol, required this.stockName});
+  const MainPage(
+      {super.key,
+      required this.symbol,
+      required this.stockName,});
   final String symbol;
   final String stockName;
-
   @override
   State<MainPage> createState() => _MainPageState();
 }

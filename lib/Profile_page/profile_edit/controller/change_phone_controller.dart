@@ -46,8 +46,10 @@ class ChangePhoneNumberController extends GetxController {
       userController.user.value.phoneNumber = phoneNumber.text.trim();
       userController.user.refresh();
       KLoader.successSnackBar(
-          title: 'Congratulation', massage: 'Your name has been updated');
-      Get.off(() => const UserDetailPage());
+        title: 'Congratulation',
+        massage: 'Your name has been updated',
+      );
+      Get.back();
     } catch (e) {
       KLoader.errorSnackBar(title: 'oh snap!', massage: e.toString());
     }
