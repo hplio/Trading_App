@@ -8,8 +8,76 @@ import 'package:trading_app/live_page/screens/nasdaq_stock_screen.dart';
 import 'package:trading_app/live_page/screens/nse_stock_screen.dart';
 import 'package:trading_app/user/controller/user_controller.dart';
 
-class LivePageScreen extends StatelessWidget {
-  const LivePageScreen({super.key});
+class LivePageScreen extends StatefulWidget {
+  LivePageScreen({super.key});
+
+  @override
+  State<LivePageScreen> createState() => _LivePageScreenState();
+}
+
+class _LivePageScreenState extends State<LivePageScreen> {
+  final List<String> stockNames = [
+    "Adani Port",
+    "Axis Bank",
+    "Coal India",
+    "ICICI Bank",
+    "ITC",
+    "Power Grid",
+    "Tata Motors",
+    "Tata Steel",
+    "TCS",
+    "Yesbank",
+    "Yatra",
+    "Titan",
+    "TideWater",
+    "TFCILTD",
+    "Tata Power",
+    "Tata Chemicals ltd.",
+    "Aditya Birla",
+    "Ongc",
+    "Oil India ltd.",
+    "Zomato"
+  ];
+
+  // Example list of stock names
+  final List<String> stockId = [
+    "NSE_EQ|INE742F01042",
+    "NSE_EQ|INE238A01034",
+    "NSE_EQ|INE522F01014",
+    "NSE_EQ|INE090A01021",
+    "NSE_EQ|INE154A01025",
+    "NSE_EQ|INE752E01010",
+    "NSE_EQ|INE155A01022",
+    "NSE_EQ|INE081A01020",
+    "NSE_EQ|INE467B01029",
+    "NSE_EQ|INE528G01035",
+    "NSE_EQ|INE0JR601024",
+    "NSE_EQ|INE280A01028",
+    "NSE_EQ|INE484C01030",
+    "NSE_EQ|INE305A01015",
+    "NSE_EQ|INE245A01021",
+    "NSE_EQ|INE092A01019",
+    "NSE_EQ|INE674K01013",
+    "NSE_EQ|INE213A01029",
+    "NSE_EQ|INE274J01014",
+    "NSE_EQ|INE758T01015"
+  ]; 
+ // Example list of stock prices
+  List<String> filteredStockNames = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredStockNames.addAll(stockNames);
+  }
+
+  void _filterStocks(String searchText) {
+    setState(() {
+      filteredStockNames = stockNames
+          .where((name) => name.toLowerCase().contains(searchText.toLowerCase()))
+          .toList();
+    });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +132,12 @@ class LivePageScreen extends StatelessWidget {
                               border: Border.all(
                                   color:
                                       dark ? TColor.grey : TColor.darkerGrey)),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 5),
                             child: TextField(
-                              decoration: InputDecoration(
+                              onChanged: _filterStocks,
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.search),
                                 errorBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
@@ -95,9 +164,9 @@ class LivePageScreen extends StatelessWidget {
                 ),
               ];
             },
-            body: const TabBarView(children: [
-              NseScreen(),
-              NasdaqScreen(),
+            body: TabBarView(children: [
+              NseScreen(stockId: stockId,stockNames: stockNames,),
+              const NasdaqScreen(),
             ])),
       ),
     );

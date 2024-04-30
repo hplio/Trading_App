@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 // import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -82,14 +84,14 @@ class _CandlestickChartState extends State<CandlestickChart> {
   //     throw e.toString();
   //   }
   // }
-  var interval = '1minute';
+  var interval = 'day';
   var stock = '';
   // var startDate='2024-02-20';
   // var endDate='2024-02-26';
   Future<void> fetchData() async {
     _chartData.clear();
     String url =
-        "https://api.upstox.com/v2/historical-candle/$stock/$interval/${endDate.year}-0${endDate.month}-${endDate.day}/${startDate.year}-0${startDate.month}-${startDate.day}";
+        "https://api.upstox.com/v2/historical-candle/$stock/$interval/${endDate.year}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}/${startDate.year}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}";
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -167,7 +169,7 @@ class _CandlestickChartState extends State<CandlestickChart> {
   final controller = Get.put(NSEController());
 
   DateTime endDate = DateTime.now();
-  DateTime startDate = DateTime(2024, 04, 26);
+  DateTime startDate = DateTime(2024, 01, 01);
 
   // TimeOfDay selectedTime = TimeOfDay.now();
 
@@ -211,128 +213,138 @@ class _CandlestickChartState extends State<CandlestickChart> {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            KDropdownBtn(
-              list: [
-                selectedItem,
-                'AD',
-                'RSI',
-                'ATR',
-                'EMA',
-                'MACD',
-                'SMA',
-                'Stochastic',
-                'TMA'
-              ],
-              selectedItem: selectedItem,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Row(
-              children: [
-                ElevatedButton(
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          KDropdownBtn(
+            list: [
+              selectedItem,
+              'AD',
+              'RSI',
+              'ATR',
+              'EMA',
+              'MACD',
+              'SMA',
+              'Stochastic',
+              'TMA'
+            ],
+            selectedItem: selectedItem,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(
+                width: 12,
+              ),
+              Expanded(
+                child: ElevatedButton(
                   onPressed: () => _selectStartDate(context),
-                  child: const Text('Select start Date'),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                ElevatedButton(
-                  onPressed: () => _selectDate(context),
-                  child: const Text('Select end Date'),
-                ),
-                DropdownButton<String>(
-                  value: interval,
-                  onChanged: (newValue) {
-                    setState(() {
-                      interval = newValue!;
-                      fetchData();
-                    });
-                  },
-                  items: <String>['1minute', '30minute', 'day', 'week', 'month']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: KSizeScreen.getScreenHeight(context) * .78,
-              child: Obx(
-                () => SfCartesianChart(
-                  zoomPanBehavior: _zoomPanBehavior,
-                  enableAxisAnimation: true,
-                  // axes: [CategoryAxis()],
-                  axes: const <ChartAxis>[
-                    NumericAxis(
-                        // numberFormat: NumberFormat.compact(),
-                        majorGridLines: MajorGridLines(width: 0),
-                        // opposedPosition: false,
-                        isVisible: false,
-                        name: 'yAxis1',
-                        interval: 100,
-                        minimum: -10,
-                        maximum: 90),
-                    NumericAxis(
-                        plotOffset: 3,
-                        // numberFormat: NumberFormat.compact(),
-                        majorGridLines: MajorGridLines(width: 0),
-                        // opposedPosition: false,
-                        isVisible: false,
-                        name: 'yAxis3',
-                        interval: 1,
-                        minimum: -5,
-                        maximum: 5),
-                    NumericAxis(
-                        // numberFormat: NumberFormat.compact(),
-                        majorGridLines: MajorGridLines(width: 0),
-                        // opposedPosition: false,
-                        isVisible: false,
-                        name: 'yAxis2',
-                        interval: 100,
-                        minimum: 1300,
-                        maximum: 1400),
-                    NumericAxis(
-                        // numberFormat: NumberFormat.compact(),
-                        majorGridLines: MajorGridLines(width: 0),
-                        // opposedPosition: false,
-                        isVisible: false,
-                        name: 'yAxis4',
-                        interval: 100,
-                        minimum: -60,
-                        maximum: 140)
-                  ],
-                  primaryXAxis: const DateTimeAxis(),
-                  legend: const Legend(isVisible: true),
-                  indicators: controller.indicators(),
-
-                  tooltipBehavior: TooltipBehavior(enable: true),
-
-                  series: <CartesianSeries>[
-                    CandleSeries<ChartData, DateTime>(
-                      enableTooltip: true,
-                      dataSource: _chartData,
-                      xValueMapper: (ChartData data, _) => data.x,
-                      lowValueMapper: (ChartData data, _) => data.low,
-                      highValueMapper: (ChartData data, _) => data.high,
-                      openValueMapper: (ChartData data, _) => data.open,
-                      closeValueMapper: (ChartData data, _) => data.close,
-                      showIndicationForSameValues: true,
-                      name: 'CandleSeries',
-                    ),
-                  ],
+                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
+                  child: const Text('start Date'),
                 ),
               ),
+              const SizedBox(
+                width: 12,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => _selectDate(context),
+                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
+                  child: const Text('end Date'),
+                ),
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              DropdownButton<String>(
+                value: interval,
+                onChanged: (newValue) {
+                  setState(() {
+                    interval = newValue!;
+                    fetchData();
+                  });
+                },
+                items: <String>['1minute', '30minute', 'day', 'week', 'month']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Obx(
+              () => SfCartesianChart(
+                zoomPanBehavior: _zoomPanBehavior,
+                enableAxisAnimation: true,
+                // axes: [CategoryAxis()],
+                axes: const <ChartAxis>[
+                  NumericAxis(
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis1',
+                      interval: 100,
+                      minimum: -10,
+                      maximum: 90),
+                  NumericAxis(
+                      plotOffset: 3,
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis3',
+                      interval: 1,
+                      minimum: -5,
+                      maximum: 5),
+                  NumericAxis(
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis2',
+                      interval: 100,
+                      minimum: 1300,
+                      maximum: 1400),
+                  NumericAxis(
+                      // numberFormat: NumberFormat.compact(),
+                      majorGridLines: MajorGridLines(width: 0),
+                      // opposedPosition: false,
+                      isVisible: false,
+                      name: 'yAxis4',
+                      interval: 100,
+                      minimum: -60,
+                      maximum: 140)
+                ],
+                primaryXAxis: const DateTimeAxis(),
+                legend: const Legend(isVisible: true),
+                indicators: controller.indicators(),
+                  
+                tooltipBehavior: TooltipBehavior(enable: true),
+                  
+                series: <CartesianSeries>[
+                  CandleSeries<ChartData, DateTime>(
+                    enableTooltip: true,
+                    dataSource: _chartData,
+                    xValueMapper: (ChartData data, _) => data.x,
+                    lowValueMapper: (ChartData data, _) => data.low,
+                    highValueMapper: (ChartData data, _) => data.high,
+                    openValueMapper: (ChartData data, _) => data.open,
+                    closeValueMapper: (ChartData data, _) => data.close,
+                    showIndicationForSameValues: true,
+                    name: 'CandleSeries',
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

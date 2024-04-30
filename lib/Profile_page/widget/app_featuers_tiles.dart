@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:trading_app/Profile_page/indicator.dart';
 import 'package:trading_app/Profile_page/privacy_policy_page.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
 import 'package:trading_app/Profile_page/widget/show_about_us.dart';
@@ -18,7 +19,7 @@ class AppFeatureTiles extends StatelessWidget {
       child: Column(
         children: [
           ProfileTile(
-            onPress: () {},
+            onPress: () => Get.to(()=>const Indicator()),
             iconData: Icons.drag_indicator,
             title: 'Indicator',
             subTitle: 'We Provide Information On Indicator Used In Our App',
