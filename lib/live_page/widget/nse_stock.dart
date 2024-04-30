@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_app/common/add_to_wishlist/ficon.dart';
 import 'package:trading_app/live_page/NSE_Stock/nse.dart';
 import 'package:trading_app/constants/colors.dart';
 
@@ -15,7 +14,7 @@ class NSEStock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool dark = Theme.of(context).brightness == Brightness.dark;
+    // final bool dark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SizedBox(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_app/Profile_page/user_detaile_page.dart';
 import 'package:trading_app/common/loader/loader.dart';
 import 'package:trading_app/network/network_manager.dart';
 import 'package:trading_app/popups/full_screen_loder.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_app/common/add_to_wishlist/ficon.dart';
 import 'package:trading_app/live_page/Chart/chart.dart';
 import 'package:trading_app/constants/colors.dart';
 
