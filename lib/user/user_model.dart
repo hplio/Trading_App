@@ -6,14 +6,14 @@ class UserModel {
     required this.username,
     required this.email,
     required this.phoneNumber,
+    required this.photo,
   });
 
   final String id;
-  final String username;
-  final String email;
+  String username;
+  String email;
   String phoneNumber;
-
-  
+  String photo;
 
   //get full name
   // String get fullName => "$lastName $firstName";
@@ -37,33 +37,31 @@ class UserModel {
     return usernameWitthPrefix;
   }
 
-  static UserModel empty() => UserModel(
-        id: '',
-        username: '',
-        email: '',
-        phoneNumber: '',
-      );
+  static UserModel empty() =>
+      UserModel(id: '', username: '', email: '', phoneNumber: '', photo: '');
 
   Map<String, dynamic> toJson() {
     return {
       "UserName": username,
       "Email": email,
       "PhoneNumber": phoneNumber,
+      "Photo": photo,
     };
   }
 
   factory UserModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
-        final data = document.data()!;
-        return UserModel(
-          id: document.id,
-          username: data['UserName'] ?? '',
-          email: data['Email'] ?? '',
-          phoneNumber: data['PhoneNumber'] ?? '',
-        );
-      } else {
-       return UserModel.empty();
-      }
+      final data = document.data()!;
+      return UserModel(
+        id: document.id,
+        username: data['UserName'] ?? '',
+        email: data['Email'] ?? '',
+        phoneNumber: data['PhoneNumber'] ?? '',
+        photo: data['Photo'] ?? '',
+      );
+    } else {
+      return UserModel.empty();
+    }
   }
 }

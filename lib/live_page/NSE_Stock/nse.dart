@@ -83,10 +83,11 @@ class _CandlestickChartState extends State<CandlestickChart> {
   //   }
   // }
   var interval = '1minute';
-  var stock='';
+  var stock = '';
   // var startDate='2024-02-20';
   // var endDate='2024-02-26';
   Future<void> fetchData() async {
+    _chartData.clear();
     String url =
         "https://api.upstox.com/v2/historical-candle/$stock/$interval/${endDate.year}-0${endDate.month}-${endDate.day}/${startDate.year}-0${startDate.month}-${startDate.day}";
 
@@ -163,12 +164,10 @@ class _CandlestickChartState extends State<CandlestickChart> {
   bool stochasticVisible = false;
   bool tmaVisible = false;
 
-  
-
   final controller = Get.put(NSEController());
 
   DateTime endDate = DateTime.now();
-  DateTime startDate = DateTime(2024,04,26);
+  DateTime startDate = DateTime(2024, 04, 26);
 
   // TimeOfDay selectedTime = TimeOfDay.now();
 
@@ -254,7 +253,7 @@ class _CandlestickChartState extends State<CandlestickChart> {
                       fetchData();
                     });
                   },
-                  items: <String>['1minute', '30minute','day','week', 'month']
+                  items: <String>['1minute', '30minute', 'day', 'week', 'month']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -262,10 +261,8 @@ class _CandlestickChartState extends State<CandlestickChart> {
                     );
                   }).toList(),
                 ),
-              
               ],
             ),
-            
             SizedBox(
               height: KSizeScreen.getScreenHeight(context) * .78,
               child: Obx(
@@ -315,9 +312,9 @@ class _CandlestickChartState extends State<CandlestickChart> {
                   primaryXAxis: const DateTimeAxis(),
                   legend: const Legend(isVisible: true),
                   indicators: controller.indicators(),
-        
+
                   tooltipBehavior: TooltipBehavior(enable: true),
-        
+
                   series: <CartesianSeries>[
                     CandleSeries<ChartData, DateTime>(
                       enableTooltip: true,

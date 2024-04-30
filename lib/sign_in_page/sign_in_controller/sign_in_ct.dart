@@ -51,6 +51,7 @@ class SignInController extends GetxController {
         id: userCredential.user!.uid,
         phoneNumber: phoneNumber.text.trim(),
         username: userName.text.trim(),
+        photo: userCredential.user!.photoURL??'',
       );
 
       final authRepo = Get.put(UserReposetory());

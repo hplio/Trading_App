@@ -5,6 +5,7 @@ import 'package:trading_app/Profile_page/user_detaile_page.dart';
 import 'package:trading_app/Profile_page/widget/app_featuers_tiles.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
 import 'package:trading_app/authenticatin_repository/auth_repo.dart';
+import 'package:trading_app/common/img_container/circuler_img_container.dart';
 import 'package:trading_app/common/loader/shimmer.dart';
 import 'package:trading_app/constants/colors.dart';
 import 'package:trading_app/user/controller/user_controller.dart';
@@ -24,70 +25,105 @@ class ProfilePagge extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(() {
-                          if (controller.profileLoding.value) {
-                            return const KShimmerEffect(hight: 80, width: 80);
-                          } else {
-                            return Text(
-                              controller.user.value.username,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .apply(
-                                    color:
-                                        dark ? TColor.white : TColor.darkerGrey,
-                                  ),
-                            );
-                          }
-                        }),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Iconsax.arrow_right_3_copy,
-                            size: 15,
-                            color: dark ? TColor.white : TColor.darkerGrey,
-                          ),
+                        Row(
+                          children: [
+                            Obx(
+                              () {
+                                if (controller.profileLoding.value) {
+                                  return const KShimmerEffect(
+                                      hight: 80, width: 80);
+                                } else {
+                                  return Text(
+                                    controller.user.value.username,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .apply(
+                                          color: dark
+                                              ? TColor.white
+                                              : TColor.darkerGrey,
+                                        ),
+                                  );
+                                }
+                              },
+                            ),
+                            IconButton(
+                              onPressed: () =>
+                                  Get.to(() => const UserDetailPage()),
+                              icon: Icon(
+                                Iconsax.arrow_right_3_copy,
+                                size: 15,
+                                color: dark ? TColor.white : TColor.darkerGrey,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Obx(
+                              () {
+                                if (controller.profileLoding.value) {
+                                  return const KShimmerEffect(
+                                      hight: 80, width: 80);
+                                } else {
+                                  return SizedBox(
+                                    width: 90,
+                                    child: Text(
+                                      'Id: ${controller.user.value.id}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .apply(
+                                            color: dark
+                                                ? TColor.white
+                                                : TColor.darkerGrey,
+                                          ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Iconsax.copy_copy,
+                                size: 15,
+                                color: dark ? TColor.white : TColor.darkerGrey,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Obx(() {
-                          if (controller.profileLoding.value) {
-                            return const KShimmerEffect(hight: 80, width: 80);
-                          } else {
-                            return SizedBox(
-                              width: 90,
-                              child: Text(
-                                'Id: ${controller.user.value.id}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .apply(
-                                      color: dark
-                                          ? TColor.white
-                                          : TColor.darkerGrey,
-                                    ),
-                              ),
-                            );
-                          }
-                        }),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Iconsax.copy_copy,
-                            size: 15,
-                            color: dark ? TColor.white : TColor.darkerGrey,
-                          ),
-                        ),
-                      ],
+                    GestureDetector(
+                      onTap: () => Get.to(() => const UserDetailPage()),
+                      child: Obx(() {
+                        final networkImage = controller.user.value.photo;
+                        final image = networkImage.isNotEmpty
+                            ? networkImage
+                            : 'Assets/images/profile_img/User-img.png';
+                        return controller.isPhotoUpload.value
+                            ? const KShimmerEffect(
+                                hight: 85,
+                                width: 85,
+                                radius: 85,
+                              )
+                            : KCirculerImage(
+                                imgString: image,
+                                hight: 85,
+                                width: 85,
+                                
+                                isNetworkImg: networkImage.isNotEmpty,
+                              );
+                      }),
                     ),
                   ],
                 ),

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:trading_app/Profile_page/profile_edit/change_phone_number_screen.dart';
+import 'package:trading_app/Profile_page/profile_edit/user_name_change.dart';
 import 'package:trading_app/common/custom_app_bar/custom_appbar.dart';
 import 'package:trading_app/common/img_container/circuler_img_container.dart';
+import 'package:trading_app/common/loader/shimmer.dart';
 import 'package:trading_app/common/profile/profile_tile.dart';
 import 'package:trading_app/constants/colors.dart';
+import 'package:trading_app/user/controller/user_controller.dart';
 
 class UserDetailPage extends StatelessWidget {
   const UserDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: CAppBar(
         title: Text(
@@ -23,19 +29,32 @@ class UserDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
-                child: KCirculerImage(
-                  imgString: 'Assets/images/profile_img/User-img.png',
-                  hight: 80,
-                  width: 80,
-                ),
+              Center(
+                child: Obx(() {
+                  final networkImage = controller.user.value.photo;
+                  final image = networkImage.isNotEmpty
+                      ? networkImage
+                      : 'Assets/images/profile_img/User-img.png';
+                  return controller.isPhotoUpload.value
+                      ? const KShimmerEffect(
+                          hight: 85,
+                          width: 85,
+                          radius: 85,
+                        )
+                      : KCirculerImage(
+                          imgString: image,
+                          hight: 85,
+                          width: 85,
+                          isNetworkImg: networkImage.isNotEmpty,
+                        );
+                }),
               ),
               const SizedBox(
                 height: 8,
               ),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.uploadUserProfilePic(),
                   child: const Text(
                     'Change Photo',
                   ),
@@ -55,17 +74,29 @@ class UserDetailPage extends StatelessWidget {
               const SizedBox(
                 height: 16 * 1.5,
               ),
-              UserProfileTile(
-                title: 'Username',
-                subTitle: 'HarshilPatel',
-                onPressed: () {},
-              ),
-              UserProfileTile(
-                title: 'User Id',
-                subTitle: '4567',
-                iconData: Iconsax.copy,
-                onPressed: () {},
-              ),
+              Obx(() {
+                if (controller.profileLoding.value) {
+                  return const KShimmerEffect(hight: 20, width: 40);
+                } else {
+                  return UserProfileTile(
+                    title: 'Username',
+                    subTitle: controller.user.value.username,
+                    onPressed: () => Get.to(() => const UserNameChangeScreen()),
+                  );
+                }
+              }),
+              Obx(() {
+                if (controller.profileLoding.value) {
+                  return const KShimmerEffect(hight: 20, width: 40);
+                } else {
+                  return UserProfileTile(
+                    title: 'User Id',
+                    subTitle: controller.user.value.id,
+                    iconData: Iconsax.copy_copy,
+                    onPressed: () {},
+                  );
+                }
+              }),
               const SizedBox(
                 height: 8,
               ),
@@ -80,15 +111,32 @@ class UserDetailPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              UserProfileTile(
-                title: 'Email',
-                subTitle: 'hplion02@gmail.com',
-                onPressed: () {},
+              Obx(
+                () {
+                  if (controller.profileLoding.value) {
+                    return const KShimmerEffect(hight: 20, width: 40);
+                  } else {
+                    return UserProfileTile(
+                      title: 'Email',
+                      iconData: null,
+                      subTitle: controller.user.value.email,
+                    );
+                  }
+                },
               ),
-              UserProfileTile(
-                title: 'PhoneNumber',
-                subTitle: '9087654321',
-                onPressed: () {},
+              Obx(
+                () {
+                  if (controller.profileLoding.value) {
+                    return const KShimmerEffect(hight: 20, width: 40);
+                  } else {
+                    return UserProfileTile(
+                      title: 'PhoneNumber',
+                      subTitle: controller.user.value.phoneNumber,
+                      onPressed: () =>
+                          Get.to(() => const UserPhoneNumberChangeScreen()),
+                    );
+                  }
+                },
               ),
               const SizedBox(
                 height: 50,
