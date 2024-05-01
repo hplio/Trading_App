@@ -165,7 +165,8 @@ class _LivePageScreenState extends State<LivePageScreen> {
               ];
             },
             body: TabBarView(children: [
-              NseScreen(stockId: stockId,stockNames: stockNames,),
+              // NseScreen(stockId: stockId,stockNames: stockNames,),
+              NseScreen(stockId: stockId,stockNames: filteredStockNames,),
               const NasdaqScreen(),
             ])),
       ),
