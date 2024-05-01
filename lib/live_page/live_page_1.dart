@@ -16,7 +16,7 @@ class LivePageScreen extends StatefulWidget {
 }
 
 class _LivePageScreenState extends State<LivePageScreen> {
-  final List<String> stockNames = [
+  final List<String> NseStockNames = [
     "Adani Port",
     "Axis Bank",
     "Coal India",
@@ -40,7 +40,7 @@ class _LivePageScreenState extends State<LivePageScreen> {
   ];
 
   // Example list of stock names
-  final List<String> stockId = [
+  final List<String> NsestockId = [
     "NSE_EQ|INE742F01042",
     "NSE_EQ|INE238A01034",
     "NSE_EQ|INE522F01014",
@@ -62,18 +62,28 @@ class _LivePageScreenState extends State<LivePageScreen> {
     "NSE_EQ|INE274J01014",
     "NSE_EQ|INE758T01015"
   ]; 
+
+  final List<String> NasdaqStockNames=['Amazon','Apple','Amd','Google','Intel','Meta','Microsoft','Netflix','Nvidia','Super Micro Computer','Walt Disney Company','AMC Entertainment Holdings','Micron Technology, Inc.','Taiwan Semicon. Ma. Comany Ltd.','Bank of America Corporation','JP Morgan Chase & Co.','Trump Media & Tech. Group Corp.','Adobe Inc.','Roku Inc.','Robinhood Market Inc.','Shopify Inc.'];
+
+  final List<String> NasdaqStockId=["NASDAQ:AMZN","NASDAQ:AAPL","NASDAQ:AMD","NASDAQ:GOOGL","NASDAQ:INTC","NASDAQ:META","NASDAQ:MSFT","NASDAQ:NFLX","NASDAQ:NVDA","NASDAQ:SMCI","NASDAQ:DIS","NASDAQ:AMC","NASDAQ:MU","NASDAQ:TSM","NASDAQ:BAC","NASDAQ:JPM","NASDAQ:DJT","NASDAQ:ADBE","NASDAQ:ROKU","NASDAQ:HOOD","NASDAQ:SQ"];
+
  // Example list of stock prices
   List<String> filteredStockNames = [];
+  List<String> filteredNasdaqStockNames = [];
 
   @override
   void initState() {
     super.initState();
-    filteredStockNames.addAll(stockNames);
+    filteredStockNames.addAll(NseStockNames);
+    filteredNasdaqStockNames.addAll(NasdaqStockNames);
   }
 
-  void _filterStocks(String searchText) {
+  void _filterNseStocks(String searchText) {
     setState(() {
-      filteredStockNames = stockNames
+      filteredStockNames = NseStockNames
+          .where((name) => name.toLowerCase().contains(searchText.toLowerCase()))
+          .toList();
+      filteredNasdaqStockNames = NasdaqStockNames
           .where((name) => name.toLowerCase().contains(searchText.toLowerCase()))
           .toList();
     });
@@ -136,7 +146,7 @@ class _LivePageScreenState extends State<LivePageScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 5),
                             child: TextField(
-                              onChanged: _filterStocks,
+                              onChanged: _filterNseStocks,
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.search),
                                 errorBorder: InputBorder.none,
@@ -157,8 +167,8 @@ class _LivePageScreenState extends State<LivePageScreen> {
                         EdgeInsets.symmetric(vertical: 10, horizontal: 32),
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     tabList: [
-                      Text('NSE'),
                       Text('NASDAQ'),
+                      Text('NSE'),
                     ],
                   ),
                 ),
@@ -166,8 +176,9 @@ class _LivePageScreenState extends State<LivePageScreen> {
             },
             body: TabBarView(children: [
               // NseScreen(stockId: stockId,stockNames: stockNames,),
-              NseScreen(stockId: stockId,stockNames: filteredStockNames,),
-              const NasdaqScreen(),
+              
+              NasdaqScreen(NasdaqStockNames: filteredNasdaqStockNames,NasdaqStockId: NasdaqStockId,),
+              NseScreen(stockId: NsestockId,stockNames: filteredStockNames,),
             ])),
       ),
     );
