@@ -9,6 +9,7 @@ import 'package:trading_app/login_page/login_page.dart';
 import 'package:trading_app/onbording_page/onbording.dart';
 import 'package:trading_app/sign_in_page/email_verification.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:trading_app/user/user_repository.dart';
 
 class AuthRepo extends GetxController {
   @override
@@ -20,6 +21,7 @@ class AuthRepo extends GetxController {
   static AuthRepo get instance => Get.find();
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+  // final userRepo = Get.put(UserReposetory());
   User? get curuuntUser => _auth.currentUser;
 
   screenRedirect() async {
@@ -150,6 +152,43 @@ class AuthRepo extends GetxController {
       throw getErrorMessage(e);
     } catch (e) {
       throw 'Something went Wrong.Please try again later.';
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    try {
+      await UserReposetory.instance.removeRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      throw getErrorMessage(e);
+    } on FormatException catch (e) {
+      throw getExceptionMessage(e);
+    } on PlatformException catch (e) {
+      throw getExceptionMessage(e);
+    } on FirebaseException catch (e) {
+      throw getErrorMessage(e);
+    } catch (e) {
+      throw 'Something went wrong. Please try again later.';
+    }
+  }
+
+  Future<void> reAuthenticateWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+
+      await curuuntUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw getErrorMessage(e);
+    } on FormatException catch (e) {
+      throw getExceptionMessage(e);
+    } on PlatformException catch (e) {
+      throw getExceptionMessage(e);
+    } on FirebaseException catch (e) {
+      throw getErrorMessage(e);
+    } catch (e) {
+      throw 'Something went wrong. Please try again later.';
     }
   }
 }

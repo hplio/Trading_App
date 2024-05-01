@@ -9,14 +9,14 @@ import 'package:trading_app/live_page/screens/nse_stock_screen.dart';
 import 'package:trading_app/user/controller/user_controller.dart';
 
 class LivePageScreen extends StatefulWidget {
-  LivePageScreen({super.key});
+  const LivePageScreen({super.key});
 
   @override
   State<LivePageScreen> createState() => _LivePageScreenState();
 }
 
 class _LivePageScreenState extends State<LivePageScreen> {
-  final List<String> NseStockNames = [
+  final List<String> nseStockNames = [
     "Adani Port",
     "Axis Bank",
     "Coal India",
@@ -40,7 +40,7 @@ class _LivePageScreenState extends State<LivePageScreen> {
   ];
 
   // Example list of stock names
-  final List<String> NsestockId = [
+  final List<String> sestockId = [
     "NSE_EQ|INE742F01042",
     "NSE_EQ|INE238A01034",
     "NSE_EQ|INE522F01014",
@@ -61,33 +61,78 @@ class _LivePageScreenState extends State<LivePageScreen> {
     "NSE_EQ|INE213A01029",
     "NSE_EQ|INE274J01014",
     "NSE_EQ|INE758T01015"
-  ]; 
+  ];
 
-  final List<String> NasdaqStockNames=['Amazon','Apple','Amd','Google','Intel','Meta','Microsoft','Netflix','Nvidia','Super Micro Computer','Walt Disney Company','AMC Entertainment Holdings','Micron Technology, Inc.','Taiwan Semicon. Ma. Comany Ltd.','Bank of America Corporation','JP Morgan Chase & Co.','Trump Media & Tech. Group Corp.','Adobe Inc.','Roku Inc.','Robinhood Market Inc.','Shopify Inc.'];
+  final List<String> NasdaqStockNames = [
+    'Amazon',
+    'Apple',
+    'Amd',
+    'Google',
+    'Intel',
+    'Meta',
+    'Microsoft',
+    'Netflix',
+    'Nvidia',
+    'Super Micro Computer',
+    'Walt Disney Company',
+    'AMC Entertainment Holdings',
+    'Micron Technology, Inc.',
+    'Taiwan Semicon. Ma. Comany Ltd.',
+    'Bank of America Corporation',
+    'JP Morgan Chase & Co.',
+    'Trump Media & Tech. Group Corp.',
+    'Adobe Inc.',
+    'Roku Inc.',
+    'Robinhood Market Inc.',
+    'Shopify Inc.'
+  ];
 
-  final List<String> NasdaqStockId=["NASDAQ:AMZN","NASDAQ:AAPL","NASDAQ:AMD","NASDAQ:GOOGL","NASDAQ:INTC","NASDAQ:META","NASDAQ:MSFT","NASDAQ:NFLX","NASDAQ:NVDA","NASDAQ:SMCI","NASDAQ:DIS","NASDAQ:AMC","NASDAQ:MU","NASDAQ:TSM","NASDAQ:BAC","NASDAQ:JPM","NASDAQ:DJT","NASDAQ:ADBE","NASDAQ:ROKU","NASDAQ:HOOD","NASDAQ:SQ"];
+  final List<String> NasdaqStockId = [
+    "NASDAQ:AMZN",
+    "NASDAQ:AAPL",
+    "NASDAQ:AMD",
+    "NASDAQ:GOOGL",
+    "NASDAQ:INTC",
+    "NASDAQ:META",
+    "NASDAQ:MSFT",
+    "NASDAQ:NFLX",
+    "NASDAQ:NVDA",
+    "NASDAQ:SMCI",
+    "NASDAQ:DIS",
+    "NASDAQ:AMC",
+    "NASDAQ:MU",
+    "NASDAQ:TSM",
+    "NASDAQ:BAC",
+    "NASDAQ:JPM",
+    "NASDAQ:DJT",
+    "NASDAQ:ADBE",
+    "NASDAQ:ROKU",
+    "NASDAQ:HOOD",
+    "NASDAQ:SQ"
+  ];
 
- // Example list of stock prices
+  // Example list of stock prices
   List<String> filteredStockNames = [];
   List<String> filteredNasdaqStockNames = [];
 
   @override
   void initState() {
     super.initState();
-    filteredStockNames.addAll(NseStockNames);
+    filteredStockNames.addAll(nseStockNames);
     filteredNasdaqStockNames.addAll(NasdaqStockNames);
   }
 
   void _filterNseStocks(String searchText) {
     setState(() {
-      filteredStockNames = NseStockNames
-          .where((name) => name.toLowerCase().contains(searchText.toLowerCase()))
+      filteredStockNames = nseStockNames
+          .where(
+              (name) => name.toLowerCase().contains(searchText.toLowerCase()))
           .toList();
-      filteredNasdaqStockNames = NasdaqStockNames
-          .where((name) => name.toLowerCase().contains(searchText.toLowerCase()))
+      filteredNasdaqStockNames = NasdaqStockNames.where(
+              (name) => name.toLowerCase().contains(searchText.toLowerCase()))
           .toList();
     });
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,9 +221,15 @@ class _LivePageScreenState extends State<LivePageScreen> {
             },
             body: TabBarView(children: [
               // NseScreen(stockId: stockId,stockNames: stockNames,),
-              
-              NasdaqScreen(NasdaqStockNames: filteredNasdaqStockNames,NasdaqStockId: NasdaqStockId,),
-              NseScreen(stockId: NsestockId,stockNames: filteredStockNames,),
+
+              NasdaqScreen(
+                NasdaqStockNames: filteredNasdaqStockNames,
+                NasdaqStockId: NasdaqStockId,
+              ),
+              NseScreen(
+                stockId: sestockId,
+                stockNames: filteredStockNames,
+              ),
             ])),
       ),
     );

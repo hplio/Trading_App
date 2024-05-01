@@ -15,7 +15,8 @@ class UserDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = UserController.instance;
+    final controller = Get.put(UserController());
+    // final controller = UserController.instance;
     return Scaffold(
       appBar: CAppBar(
         title: Text(
@@ -133,8 +134,9 @@ class UserDetailPage extends StatelessWidget {
                     return UserProfileTile(
                       title: 'PhoneNumber',
                       subTitle: controller.user.value.phoneNumber,
-                      onPressed: () =>
-                          Get.to(() => const UserPhoneNumberChangeScreen()),
+                      onPressed: () => Get.to(
+                        () => const UserPhoneNumberChangeScreen(),
+                      ),
                     );
                   }
                 },
@@ -144,7 +146,7 @@ class UserDetailPage extends StatelessWidget {
               ),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.deleteAccountWarningPopup(),
                   child: const Text(
                     'Delete Account',
                     style: TextStyle(color: TColor.error),

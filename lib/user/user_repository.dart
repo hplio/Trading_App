@@ -82,4 +82,17 @@ class UserReposetory extends GetxController {
       throw 'Something went wrong. Please try again later';
     }
   }
+  Future<void> removeRecord(String userId) async {
+    try {
+      await _db.collection('User').doc(userId).delete();
+    } on FirebaseException catch (e) {
+      throw getErrorMessage(e);
+    } on FormatException catch (e) {
+      throw getExceptionMessage(e);
+    } on PlatformException catch (e) {
+      throw getExceptionMessage(e);
+    } catch (e) {
+      throw 'Somthing went wrong. Pleease try againg later';
+    }
+  }
 }

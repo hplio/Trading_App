@@ -31,12 +31,12 @@ class BottomNavigation extends StatelessWidget {
               ),
               label: 'Live',
             ),
-            NavigationDestination(
-              icon: Icon(
-                Iconsax.heart,
-              ),
-              label: 'WishList',
-            ),
+            // NavigationDestination(
+            //   icon: Icon(
+            //     Iconsax.heart,
+            //   ),
+            //   label: 'WishList',
+            // ),
             NavigationDestination(
               icon: Icon(
                 Iconsax.user,
@@ -56,8 +56,8 @@ class BottomNavigation extends StatelessWidget {
 class NavigationController extends GetxController {
   Rx<int> curruntPage = 0.obs;
   final container = <Widget>[
-    LivePageScreen(),
-    const WishListPage(),
+    const LivePageScreen(),
+    // const WishListPage(),
     const ProfilePagge(),
   ];
 }
