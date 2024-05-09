@@ -12,7 +12,7 @@ class FavIcon extends GetxController {
   // final isFav = false.obs;
 
   final stockL = List.generate(20, (index) => false).obs;
-  final nasdaqStockL = List.generate(20, (index) => false).obs;
+  final nasdaqStockL = List.generate(21, (index) => false).obs;
 
   void addStockIdAndName(String stockkId, String stockkName) {
     if (stockName.contains(stockkName)) {
