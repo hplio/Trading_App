@@ -178,7 +178,7 @@ class AuthRepo extends GetxController {
       AuthCredential credential =
           EmailAuthProvider.credential(email: email, password: password);
 
-      await curuuntUser!.reauthenticateWithCredential(credential);
+      await _auth.currentUser?.reauthenticateWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       throw getErrorMessage(e);
     } on FormatException catch (e) {

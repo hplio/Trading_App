@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trading_app/common/custom_app_bar/custom_appbar.dart';
 // import 'package:get/get.dart';
 
 class Indicator extends StatelessWidget {
@@ -7,7 +8,7 @@ class Indicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CAppBar(
         title: Text(
           "Indicators",
           style: Theme.of(context).textTheme.headlineMedium,

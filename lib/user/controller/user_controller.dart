@@ -103,6 +103,7 @@ class UserController extends GetxController {
   }
 
   void deleteAccountWarningPopup() {
+    final dark=Theme.of(Get.overlayContext!).brightness==Brightness.dark;
     Get.defaultDialog(
       contentPadding: const EdgeInsets.all(16),
       title: 'Delete Account',
@@ -111,7 +112,10 @@ class UserController extends GetxController {
         onPressed: () => deleteUserAccount(),
         style: ElevatedButton.styleFrom(
           backgroundColor: TColor.error,
-          foregroundColor: TColor.white.withOpacity(.8),
+          foregroundColor: TColor.white.withOpacity(.5),
+          side: const BorderSide(
+            color: TColor.error
+          )
         ),
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
@@ -122,8 +126,11 @@ class UserController extends GetxController {
       ),
       cancel: OutlinedButton(
         onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-        child: const Text(
+        child:  Text(
           'Cancel',
+          style: TextStyle(
+            color: dark?TColor.light:TColor.white,
+          ),
         ),
       ),
     );

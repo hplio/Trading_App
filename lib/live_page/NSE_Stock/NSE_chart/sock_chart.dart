@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:trading_app/constants/size.dart';
 import 'package:trading_app/live_page/NSE_Stock/NSE_chart/chart_modal/chat_modal.dart';
 import 'package:trading_app/live_page/controller/nse_controller.dart';
 
@@ -18,9 +17,9 @@ class StockChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final controller = Get.put(NSEController());
-    return SizedBox(
-      height: KSizeScreen.getScreenHeight(context) * .78,
+    return Expanded(
       child: Obx(
         () => SfCartesianChart(
           zoomPanBehavior: _zoomPanBehavior,

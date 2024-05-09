@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -24,7 +25,6 @@ class NSEController extends GetxController {
     stochasticVisible.value = false;
     tmaVisible.value = false;
 
-    
     if (value == 'AD') {
       adVisible.value = !adVisible.value;
     } else if (value == 'RSI') {
@@ -129,4 +129,5 @@ class NSEController extends GetxController {
     return indicator;
   }
 
+ 
 }

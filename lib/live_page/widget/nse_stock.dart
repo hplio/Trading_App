@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_app/live_page/NSE_Stock/nse.dart';
 import 'package:trading_app/constants/colors.dart';
+import 'package:trading_app/live_page/controller/fav_controller.dart';
+import 'package:trading_app/live_page/widget/add_icon.dart';
 
 class NSEStock extends StatelessWidget {
   const NSEStock({
@@ -15,6 +17,7 @@ class NSEStock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final bool dark = Theme.of(context).brightness == Brightness.dark;
+    final controller = Get.put(FavIcon());
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SizedBox(
@@ -47,15 +50,14 @@ class NSEStock extends StatelessWidget {
                           ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.add,
-                    ),
+                  AddIconBtn(
+                    stock: stock,
+                    stockName: stockName,
+                    onPressed: () {
+                      controller.isFav.value = !controller.isFav.value;
+                      controller.addStockIdAndName(stock, stockName);
+                    },
                   ),
-                  // const FIcon(
-                  //   stockId: '',
-                  // ),
                 ],
               ),
             ),
