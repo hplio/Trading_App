@@ -5,7 +5,7 @@ import 'package:trading_app/Profile_page/indicator.dart';
 import 'package:trading_app/Profile_page/privacy_policy_page.dart';
 import 'package:trading_app/Profile_page/widget/profile_tile.dart';
 import 'package:trading_app/Profile_page/widget/show_about_us.dart';
-import 'package:trading_app/wishlist_page/wishlist_page.dart';
+import 'package:trading_app/wishlist_page/wishlist_main.dart';
 
 class AppFeatureTiles extends StatelessWidget {
   const AppFeatureTiles({
@@ -31,7 +31,7 @@ class AppFeatureTiles extends StatelessWidget {
             subTitle: 'Detaile Information On Our App Privacy Policy',
           ),
           ProfileTile(
-            onPress: () => Get.to(()=>const WishListPage()),
+            onPress: () => Get.to(()=>const WishListMain()),
             iconData: Iconsax.bookmark,
             title: 'WishList',
             subTitle: 'Your Favorite Stock Or your Bookmark Stock Information.',

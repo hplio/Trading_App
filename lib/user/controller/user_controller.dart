@@ -180,7 +180,7 @@ class UserController extends GetxController {
         return;
       }
       await AuthRepo.instance.reAuthenticateWithEmailAndPassword(
-          verifyEmail.text.trim(), verifyEmail.text.trim());
+          verifyEmail.text.trim(), verifyPassword.text.trim());
       await AuthRepo.instance.deleteAccount();
       KFullScreenLoder.stopLoading();
       Get.offAll(() => const LoginPage());

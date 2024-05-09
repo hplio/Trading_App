@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_app/live_page/NSE_Stock/nse.dart';
 import 'package:trading_app/constants/colors.dart';
-import 'package:trading_app/live_page/controller/fav_controller.dart';
-import 'package:trading_app/live_page/widget/add_icon.dart';
 
 class NSEStock extends StatelessWidget {
   const NSEStock({
     super.key,
     required this.stock,
     required this.stockName,
+     this.iconButton,
   });
   final String stock;
   final String stockName;
+  final Widget? iconButton;
 
   @override
   Widget build(BuildContext context) {
     // final bool dark = Theme.of(context).brightness == Brightness.dark;
-    final controller = Get.put(FavIcon());
+    // final controller = Get.put(FavIcon());
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SizedBox(
@@ -50,14 +50,22 @@ class NSEStock extends StatelessWidget {
                           ),
                     ),
                   ),
-                  AddIconBtn(
-                    stock: stock,
-                    stockName: stockName,
-                    onPressed: () {
-                      controller.isFav.value = !controller.isFav.value;
-                      controller.addStockIdAndName(stock, stockName);
-                    },
-                  ),
+                  iconButton!,
+                  // IconButton(
+                  //   onPressed: () {
+                  //     controller.addStockIdAndName(stock, stockName);
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.add,
+                  //   ),
+                  // ),
+                  // btn?? const SizedBox(),
+                  // // AddIconBtn(
+                  // //   stock: stock,
+                  // //   stockName: stockName,
+                  // //   onPressed: () =>
+                  // //       controller.addStockIdAndName(stock, stockName),
+                  // // ),
                 ],
               ),
             ),
