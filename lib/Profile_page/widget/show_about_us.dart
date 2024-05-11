@@ -7,7 +7,7 @@ class ShowAppDialog {
     bool dark = Theme.of(context).brightness == Brightness.dark;
     return showAboutDialog(
       applicationIcon: const KCirculerImage(
-        imgString: 'Assets/images/logo/app_icon.jpg',
+        imgString: 'Assets/images/logo/icon.jpg',
       ),
       applicationVersion: '1.0.0',
       context: context,

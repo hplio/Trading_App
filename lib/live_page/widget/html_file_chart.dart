@@ -9,15 +9,16 @@ class HTMLFileChart extends StatelessWidget {
     // required this.fileName,
     required this.stockName,
     required this.symbol,
+    this.iconBtn,
   });
 
   // final String fileName;
   final String stockName;
   final String symbol;
+  final Widget? iconBtn;
 
   @override
   Widget build(BuildContext context) {
-    // final bool dark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SizedBox(
@@ -51,13 +52,7 @@ class HTMLFileChart extends StatelessWidget {
                           ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.add,
-                    ),
-                  ),
-                  // const FIcon(stockId: '',),
+                  iconBtn!,
                 ],
               ),
             ),
@@ -67,10 +62,3 @@ class HTMLFileChart extends StatelessWidget {
     );
   }
 }
-// IconButton(
-                  //   onPressed: () {},
-                  //   icon: Icon(
-                  //     Icons.add,
-                  //     color: dark ? TColor.white : TColor.darkerGrey,
-                  //   ),
-                  // ),

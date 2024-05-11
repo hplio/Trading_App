@@ -8,13 +8,16 @@ class NSEStock extends StatelessWidget {
     super.key,
     required this.stock,
     required this.stockName,
+     this.iconButton,
   });
   final String stock;
   final String stockName;
+  final Widget? iconButton;
 
   @override
   Widget build(BuildContext context) {
     // final bool dark = Theme.of(context).brightness == Brightness.dark;
+    // final controller = Get.put(FavIcon());
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: SizedBox(
@@ -47,15 +50,22 @@ class NSEStock extends StatelessWidget {
                           ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.add,
-                    ),
-                  ),
-                  // const FIcon(
-                  //   stockId: '',
+                  iconButton!,
+                  // IconButton(
+                  //   onPressed: () {
+                  //     controller.addStockIdAndName(stock, stockName);
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.add,
+                  //   ),
                   // ),
+                  // btn?? const SizedBox(),
+                  // // AddIconBtn(
+                  // //   stock: stock,
+                  // //   stockName: stockName,
+                  // //   onPressed: () =>
+                  // //       controller.addStockIdAndName(stock, stockName),
+                  // // ),
                 ],
               ),
             ),

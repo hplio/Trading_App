@@ -118,12 +118,15 @@ class ProfilePagge extends StatelessWidget {
                                 width: 85,
                                 radius: 85,
                               )
-                            : KCirculerImage(
-                                imgString: image,
-                                hight: 85,
-                                width: 85,
-                                isNetworkImg: networkImage.isNotEmpty,
-                              );
+                            : Hero(
+                              tag: 'ProfilePic',
+                              child: KCirculerImage(
+                                  imgString: image,
+                                  hight: 85,
+                                  width: 85,
+                                  isNetworkImg: networkImage.isNotEmpty,
+                                ),
+                            );
                       }),
                     ),
                   ],

@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeDesinge.lightTheme,
       darkTheme: ThemeDesinge.darkTheme,
       home: const Scaffold(
-        // body: OnBordingPage(),
         backgroundColor: TColor.primary,
         body:Center(
           child: CircularProgressIndicator(
