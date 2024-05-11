@@ -98,17 +98,17 @@ class _LivePageScreenState extends State<LivePageScreen> {
     "NASDAQ:NFLX",
     "NASDAQ:NVDA",
     "NASDAQ:SMCI",
-    "NASDAQ:DIS",
-    "NASDAQ:AMC",
+    "NYSE:DIS",
+    "NYSE:AMC",
     "NASDAQ:MU",
-    "NASDAQ:TSM",
-    "NASDAQ:BAC",
-    "NASDAQ:JPM",
+    "NYSE:TSM",
+    "NYSE:BAC",
+    "NYSE:JPM",
     "NASDAQ:DJT",
     "NASDAQ:ADBE",
     "NASDAQ:ROKU",
     "NASDAQ:HOOD",
-    "NASDAQ:SQ"
+    "NYSE:SHOP"
   ];
 
   // Example list of stock prices
