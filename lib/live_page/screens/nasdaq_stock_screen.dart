@@ -15,6 +15,31 @@ class NasdaqScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List nasdaqList = <String>[
+      'Assets/images/nasdaq/images.png',
+      'Assets/images/nasdaq/apple.png',
+      'Assets/images/nasdaq/download (4).png',
+      'Assets/images/nasdaq/google.png',
+      'Assets/images/nasdaq/intrel.png',
+      'Assets/images/nasdaq/meta.jpeg',
+      'Assets/images/nasdaq/microsoft.png',
+      'Assets/images/nasdaq/netflix.png',
+      'Assets/images/nasdaq/nvidia.png',
+      'Assets/images/nasdaq/micron.png',
+      'Assets/images/nasdaq/disney.png',
+      'Assets/images/nasdaq/amc.png',
+      'Assets/images/nasdaq/micron.png',
+      'Assets/images/nasdaq/taivan.png',
+      'Assets/images/nasdaq/bankOfAmerica.png',
+      'Assets/images/nasdaq/jpMorgan.png',
+      'Assets/images/nasdaq/trum.jpeg',
+      'Assets/images/nasdaq/adobe.png',
+      'Assets/images/nasdaq/roku.png',
+      'Assets/images/nasdaq/robinhood.png',
+      'Assets/images/nasdaq/robinhood.png',
+      'Assets/images/nasdaq/sopyfi.png',
+    ];
+    
     final controller = Get.put(FavIcon());
     return Scaffold(
       body: Padding(
@@ -24,10 +49,12 @@ class NasdaqScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                   itemCount: NasdaqStockNames.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (_, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: HTMLFileChart(
+                        showImage: true,
+                            assetName: nasdaqList[index],
                         symbol: NasdaqStockId[index],
                         stockName: NasdaqStockNames[index],
                         iconBtn: Obx(
@@ -48,6 +75,7 @@ class NasdaqScreen extends StatelessWidget {
                                 : const Icon(
                                     Icons.add,
                                   ),
+                                  
                           ),
                         ),
                       ),
