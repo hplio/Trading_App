@@ -45,7 +45,6 @@ class WishListNasdaqPage extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: HTMLFileChart(
-                    
                     stockName: controller.nasdaqStockName[index],
                     symbol: controller.nasdaqStockId[index],
                     iconBtn: const SizedBox(

@@ -8,15 +8,18 @@ class NSEStock extends StatelessWidget {
     super.key,
     required this.stock,
     required this.stockName,
-     this.iconButton,
+    this.iconButton,
+    this.showImage = false,
+     this.assetName,
   });
   final String stock;
   final String stockName;
   final Widget? iconButton;
-
+  final bool? showImage;
+  final String? assetName;
   @override
   Widget build(BuildContext context) {
-    // final bool dark = Theme.of(context).brightness == Brightness.dark;
+    final bool dark = Theme.of(context).brightness == Brightness.dark;
     // final controller = Get.put(FavIcon());
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
@@ -42,6 +45,17 @@ class NSEStock extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  if (showImage!)
+                    Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        color: dark ? TColor.black : TColor.light,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image(
+                          fit: BoxFit.fill, image: AssetImage(assetName ?? '')),
+                    ),
                   SizedBox(
                     child: Text(
                       stockName,
