@@ -11,6 +11,27 @@ class NseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List nseList = <String>[
+      'Assets/images/nse/Adani.png',
+      'Assets/images/nse/adityaBrila.png',
+      'Assets/images/nse/axis.png',
+      'Assets/images/nse/coal india.png',
+      'Assets/images/nse/icici.png',
+      'Assets/images/nse/ITC.png',
+      'Assets/images/nse/oilIndia.png',
+      'Assets/images/nse/ongc.png',
+      'Assets/images/nse/power grid.png',
+      'Assets/images/nse/tata motors.png',
+      'Assets/images/nse/tata steel.png',
+      'Assets/images/nse/tcs.png',
+      'Assets/images/nse/TFCILTD.jpeg',
+      'Assets/images/nse/Tidewater.png',
+      'Assets/images/nse/Titan.png',
+      'Assets/images/nse/yatra.png',
+      'Assets/images/nse/yes bank.png',
+      'Assets/images/nse/Zomato.png',
+
+    ];
     final controller = Get.put(FavIcon());
     return Scaffold(
       body: Padding(
