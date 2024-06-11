@@ -40,20 +40,20 @@ dependencies:
   iconsax_flutter: ^1.0.0
   smooth_page_indicator: ^1.1.0
   webview_flutter: ^4.7.0
-  firebase_core: ^2.27.0
-  firebase_auth: ^4.17.8
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
   syncfusion_flutter_charts: ^25.1.40
   csv: ^6.0.0
   get_storage: ^2.1.1
   connectivity_plus: ^5.0.2
   lottie: ^3.1.0
-  cloud_firestore: ^4.15.8
+  cloud_firestore: ^5.0.0
   google_sign_in: ^6.2.1
   http: ^1.2.1
   shimmer: ^3.0.0
   image_picker: ^1.1.0
   cached_network_image: ^3.3.1
-  firebase_storage: ^11.7.4
+  firebase_storage: ^12.0.0
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +64,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

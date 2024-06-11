@@ -3,7 +3,7 @@ import 'text_theme.dart';
 import 'elevated_button_theme.dart';
 import 'appbar_theme.dart';
 import 'bottom_sheet_theme.dart';
-import 'checkbox_theme.dart';
+// import 'checkbox_theme.dart';
 import 'chip_theme.dart';
 import 'outlined_button_theme.dart';
 import 'input_decoration_theme.dart';
@@ -20,7 +20,7 @@ class ThemeDesinge {
     elevatedButtonTheme: TElevetedButtonTheme.lightElevetedButtonTheme,
     appBarTheme: TAppbarTheme.lightAppbarTheme,
     bottomSheetTheme: TBottomSheetTheme.lightBottomSheetTheme,
-    checkboxTheme: TCheckBoxTheme.lightCheckBoxTheme,
+    // checkboxTheme: TCheckBoxTheme.lightCheckBoxTheme,
     chipTheme: TChipTheme.lightChipTheme,
     outlinedButtonTheme: TOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: TInputDecorationTheme.lightInputDecotation,
@@ -35,7 +35,7 @@ class ThemeDesinge {
     elevatedButtonTheme: TElevetedButtonTheme.darkElevetedButtonTheme,
     appBarTheme: TAppbarTheme.darkAppbarTheme,
     bottomSheetTheme: TBottomSheetTheme.darkBottomSheetTheme,
-    checkboxTheme: TCheckBoxTheme.darkCheckBoxTheme,
+    // checkboxTheme: TCheckBoxTheme.darkCheckBoxTheme,
     chipTheme: TChipTheme.darkChipTheme,
     outlinedButtonTheme: TOutlinedButtonTheme.darkOutlinedButtonTheme,
     inputDecorationTheme: TInputDecorationTheme.darkInputDecotation,
